@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вячеслав Дерябин — парсинг, автоматизация, AI-интеграции</title>
+<meta name="description" content="Парсинг сайтов, документы в Excel, автоматизация таблиц и Telegram-боты на Python. Пилот на ваших данных до оплаты.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Вячеслав Дерябин — парсинг, автоматизация, AI-интеграции">
+<meta property="og:description" content="Парсинг сайтов, документы в Excel, автоматизация таблиц и Telegram-боты на Python. Пилот на ваших данных до оплаты.">
+<meta property="og:url" content="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/">
+<meta property="og:image" content="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0a1612">
+<link rel="icon" href="data:,">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Вячеслав Дерябин","jobTitle":"Парсинг, автоматизация, AI-интеграции","email":"mailto:neuroexpertv.d@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Нижний Новгород","addressCountry":"RU"},"sameAs":["https://kwork.ru/user/neuroexpertai","https://www.fl.ru/users/slava-derjbin/","https://github.com/Vyacheslav-Derybin"]}</script>
+<style>
+/* Тема меняется тремя числами: --h (основа), --h1 и --h2 (подсветки) */
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+:root{color-scheme:dark;--h:165;--h1:25;--h2:100;
+--bg:oklch(.15 .028 var(--h));--cd:oklch(.2 .032 var(--h));--t:oklch(.96 .012 140);--s:oklch(.76 .035 var(--h));
+--a1:oklch(.74 .18 var(--h1));--a2:oklch(.9 .16 var(--h2));--ink:oklch(.2 .04 var(--h));
+--line:oklch(1 0 0/.1);--glow:color-mix(in oklch,var(--a1) 55%,transparent);--sh:0 24px 60px -20px oklch(0 0 0/.6)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px;scrollbar-color:oklch(.4 .05 var(--h)) var(--bg)}
+body{background:var(--bg);color:var(--t);font:17px/1.6 Manrope,Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-wrap:break-word;overflow-x:clip;-webkit-font-smoothing:antialiased}
+::selection{background:var(--a1);color:var(--ink)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--a2);outline-offset:3px;border-radius:6px}
+.w{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:72px 0}
+@media(min-width:760px){section{padding:104px 0}}
+p,li{text-wrap:pretty}
+h1{display:flex;flex-wrap:wrap;column-gap:.27em;font-size:clamp(32px,5.6vw,72px);line-height:1.06;letter-spacing:-.025em;font-weight:800}
+h2{font-size:clamp(26px,3.4vw,40px);line-height:1.15;letter-spacing:-.015em;font-weight:700;text-wrap:balance}
+h3{font-size:20px;line-height:1.3;font-weight:700}
+/* живой фон: дрейфующие светящиеся пятна, свет за курсором, зерно */
+.bg{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.bg i{position:absolute;width:70vmax;height:70vmax;border-radius:50%;will-change:transform}
+.bg i:nth-child(1){left:-25vmax;top:-32vmax;background:radial-gradient(closest-side,color-mix(in oklch,var(--a1) 30%,transparent),transparent);animation:d1 26s ease-in-out infinite alternate}
+.bg i:nth-child(2){right:-32vmax;top:8vh;background:radial-gradient(closest-side,color-mix(in oklch,var(--a2) 20%,transparent),transparent);animation:d2 32s ease-in-out infinite alternate}
+.bg i:nth-child(3){left:8vw;bottom:-42vmax;background:radial-gradient(closest-side,oklch(.5 .12 var(--h)/.5),transparent);animation:d1 38s ease-in-out infinite alternate-reverse}
+@keyframes d1{to{transform:translate3d(14vmax,10vmax,0) scale(1.15)}}
+@keyframes d2{to{transform:translate3d(-16vmax,12vmax,0) scale(.9)}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(520px circle at var(--px,70%) var(--py,12%),color-mix(in oklch,var(--a2) 11%,transparent),transparent 70%)}
+body::after{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.045;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.pg{display:none}
+/* шапка */
+.hd{position:sticky;top:0;z-index:10;background:color-mix(in oklch,var(--bg) 68%,transparent);backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--line)}
+.hd .w{display:flex;justify-content:space-between;align-items:center;height:64px}
+.br{display:flex;align-items:center;min-height:44px;font-weight:700;text-decoration:none}
+nav{display:flex}
+nav a{display:flex;align-items:center;min-height:64px;padding:0 12px;color:var(--s);text-decoration:none;font-size:14px;transition:color .2s}
+nav a:hover,nav a[aria-current]{color:var(--t)}
+nav a[aria-current]{box-shadow:inset 0 -2px var(--a1)}
+@media(max-width:699px){nav a:not(:first-child):not(:last-child){display:none}}
+/* кнопки и чипы */
+.row{display:flex;flex-wrap:wrap;gap:12px}
+.b{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border:1px solid var(--line);border-radius:12px;background:color-mix(in oklch,var(--t) 5%,transparent);font-size:15px;font-weight:600;text-decoration:none;transition:transform .25s,border-color .25s,box-shadow .25s,background-position .5s}
+.b:hover{border-color:color-mix(in oklch,var(--a1) 70%,transparent);box-shadow:0 10px 30px -12px var(--glow)}
+.p{border-color:transparent;background:linear-gradient(120deg,var(--a2),var(--a1)) 0 0/160% 100%;color:var(--ink);box-shadow:0 10px 36px -10px var(--glow)}
+.p:hover{background-position:100% 0;box-shadow:0 14px 44px -8px var(--glow)}
+.p::before{content:"";position:absolute;inset:-2px;border-radius:14px;padding:2px;pointer-events:none;background:conic-gradient(from var(--ang),transparent 0 62%,var(--a2),var(--t),var(--a1) 95%,transparent);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 3.5s linear infinite}
+@keyframes spin{to{--ang:360deg}}
+.ch{display:inline-block;padding:6px 14px;border:1px solid var(--line);border-radius:99px;background:color-mix(in oklch,var(--t) 3%,transparent);font-size:13px;line-height:1.4;color:var(--s);text-decoration:none}
+.ch a{position:relative;color:var(--t)}
+.ch a::after{content:"";position:absolute;inset:-14px -4px}
+a.ch{display:inline-flex;align-items:center;min-height:44px;color:var(--t)}
+a.ch::before{content:"";width:7px;height:7px;margin-right:9px;border-radius:50%;background:var(--a1);animation:pulse 2.2s infinite}
+@keyframes pulse{from{box-shadow:0 0 0 0 var(--glow)}to{box-shadow:0 0 0 10px transparent}}
+/* hero */
+.hero{position:relative;isolation:isolate;overflow:hidden;padding:56px 0 80px}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/64px 64px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/64px 64px;-webkit-mask-image:radial-gradient(ellipse 75% 75% at 30% 30%,#000,transparent);mask-image:radial-gradient(ellipse 75% 75% at 30% 30%,#000,transparent)}
+h1 span{display:inline-block;animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+h1 span:nth-child(2){animation-delay:.12s}
+h1 .gr{background:linear-gradient(100deg,var(--a2),var(--a1) 45%,var(--a2) 90%) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap;animation:rise 1s .24s cubic-bezier(.2,.7,.2,1) both,sheen 7s linear 1.4s infinite}
+@keyframes rise{from{opacity:0;transform:translateY(.35em);filter:blur(10px)}}
+@keyframes sheen{to{background-position:-200% 0}}
+.hg{display:grid;gap:48px;margin-top:36px;align-items:start}
+@media(min-width:900px){.hero{padding:88px 0 112px}.hg{grid-template-columns:1.1fr .9fr;gap:72px;margin-top:48px}}
+.lead{color:var(--s);font-size:18px;max-width:32em;margin-bottom:32px}
+.hg .row+.row{margin-top:32px;gap:8px}
+/* таблица: идёт «сканирование», спорные ячейки пульсируют */
+.tbl{position:relative;overflow:hidden;background:color-mix(in oklch,var(--cd) 82%,transparent);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh),0 0 90px -30px var(--glow);padding:18px 16px 16px}
+.tbl::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 42%,color-mix(in oklch,var(--a2) 20%,transparent) 50%,transparent 58%);transform:translateY(-100%);animation:scan 5s linear 1.6s infinite}
+@keyframes scan{to{transform:translateY(100%)}}
+.tbl>div{display:grid;grid-template-columns:1.3fr .7fr 1fr .9fr;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.tbl .th{border:0;padding-top:0;font-size:11px;white-space:nowrap;color:var(--s)}
+.tbl i{font-style:normal}
+.tbl .v{font-size:12px;color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbl .v.mut{color:var(--s)}
+.tbl .v.warn{color:var(--a1)}
+.tbl b{height:8px;border-radius:4px;background:color-mix(in oklch,var(--t) 11%,transparent);transform-origin:left;animation:f .9s both}
+.tbl b:nth-child(2){animation-delay:.12s}.tbl b:nth-child(3){animation-delay:.24s}.tbl b:nth-child(4){animation-delay:.36s}
+.tbl>div:nth-child(even) b{animation-delay:.3s}
+.tbl>div:nth-child(4) b:last-child,.tbl>div:nth-child(7) b:last-child{width:16px;background:var(--a1);animation:f .9s both,pulse 2.2s 1.4s infinite}
+.tbl figcaption{margin-top:14px;font-size:13px;color:var(--s)}
+@keyframes f{from{transform:scaleX(0)}}
+/* карточки: подсветка границы и свет следуют за курсором */
+.c,.k{position:relative;--mx:50%;--my:0;background:color-mix(in oklch,var(--cd) 72%,transparent);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);transition:transform .3s}
+.c::before,.k::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx) var(--my),var(--a2),var(--a1) 40%,transparent 75%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.c::after,.k::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(340px circle at var(--mx) var(--my),color-mix(in oklch,var(--a1) 15%,transparent),transparent 70%)}
+.c:hover,.k:hover{transform:translateY(-2px)}
+.c:hover::before,.c:hover::after,.k:hover::before,.k:hover::after{opacity:1}
+.g{display:grid;gap:22px;margin-top:44px}
+@media(min-width:640px){.g{grid-template-columns:1fr 1fr}.g .c:last-child{grid-column:span 2}}
+@media(min-width:1000px){.g{grid-template-columns:repeat(3,1fr)}}
+.c{display:flex;flex-direction:column;gap:12px;padding:28px}
+.ic{width:32px;height:32px;margin-bottom:8px;fill:none;stroke:var(--a2);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+.c:hover .ic{stroke:var(--a1)}
+.c p{color:var(--s);font-size:16px}
+.c .r{margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.c .r+.r{margin-top:0;border:0;padding-top:0}
+.c b{color:var(--t);font-weight:600}
+/* процесс: линия заполняется при прокрутке, точки загораются */
+.pr{display:grid;gap:40px}
+@media(min-width:900px){.pr{grid-template-columns:4fr 8fr}.pr>h2{position:sticky;top:96px;align-self:start}}
+ol{list-style:none;padding:0 56px 0 0;position:relative}
+ol::before,ol::after{content:"";position:absolute;right:16px;top:16px;bottom:16px;width:1px;background:var(--line)}
+ol::after{width:2px;right:15.5px;background:linear-gradient(var(--a2),var(--a1));box-shadow:0 0 14px var(--glow);transform-origin:top}
+li{position:relative;padding-bottom:44px;color:var(--s)}
+li:last-child{padding-bottom:0}
+li strong{display:block;color:var(--t);font-size:20px;line-height:1.3;margin-bottom:6px}
+.d{position:absolute;left:calc(100% + 24px);top:-2px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--a2);border-radius:50%;background:var(--bg);color:var(--a2);font-size:13px;font-weight:700}
+/* кейсы */
+.cs{display:grid;gap:22px;margin-top:44px}
+.k{display:grid;gap:24px;padding:28px}
+@media(min-width:900px){.k{grid-template-columns:5fr 7fr;gap:64px;padding:44px}.k:nth-of-type(even){grid-template-columns:7fr 5fr}.k:nth-of-type(even) .m{order:2}}
+.m>p:first-child{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--s)}
+.m h3{font-size:clamp(26px,3vw,34px);margin:8px 0 16px;letter-spacing:-.01em}
+.t p{color:var(--s);padding:14px 0;border-top:1px solid var(--line)}
+.t p:first-child{border:0;padding-top:0;color:var(--t);font-size:18px}
+.t b{color:var(--t);font-weight:600}
+.t .ch{margin:2px 4px 2px 0}
+.shot{margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--cd);box-shadow:var(--sh)}
+.shot::before{content:"";display:block;height:22px;border-bottom:1px solid var(--line);background:radial-gradient(circle at 14px 11px,var(--a1) 3px,transparent 4px),radial-gradient(circle at 30px 11px,var(--a2) 3px,transparent 4px),radial-gradient(circle at 46px 11px,var(--s) 3px,transparent 4px)}
+.shot img{display:block;width:100%;height:auto}
+/* границы */
+.g2{display:grid;gap:22px;margin-top:40px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}}
+.g2 .c{padding:28px}
+.g2 .c:hover{transform:none}
+.g2 .c:hover::before,.g2 .c:hover::after{opacity:0}
+.g2 a{text-decoration-color:var(--a1);text-underline-offset:3px}
+/* контакты */
+#contacts{position:relative;overflow:clip}
+#contacts::before{content:"";position:absolute;z-index:-1;left:50%;bottom:-30%;width:min(1000px,130%);height:70%;transform:translateX(-50%);pointer-events:none;background:radial-gradient(closest-side,color-mix(in oklch,var(--a1) 24%,transparent),transparent)}
+#contacts h2{font-size:clamp(32px,5vw,56px);line-height:1.08;max-width:14em;margin-bottom:36px}
+.ct{list-style:none;padding:0;margin-top:40px;display:grid;gap:8px;color:var(--s);font-size:16px}
+.ct li{display:flex;align-items:center;min-height:44px;padding:0;color:inherit}
+.ct a{display:inline-flex;align-items:center;min-height:44px;color:var(--t)}
+footer{padding:32px 0 48px;border-top:1px solid var(--line);font-size:14px;color:var(--s)}
+/* появление, шкала прокрутки, линия процесса — на scroll-driven animations */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+@supports(animation-timeline:view()){
+.pg{display:block;position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:linear-gradient(90deg,var(--a2),var(--a1));box-shadow:0 0 12px var(--glow);transform-origin:left;transform:scaleX(0);animation:pg linear both;animation-timeline:scroll(root)}
+ol::after{transform:scaleY(0);animation:grow linear both;animation-timeline:view();animation-range:entry 20% cover 70%}
+.d{animation:lit linear both;animation-timeline:view();animation-range:cover 18% cover 36%}
+}
+@keyframes pg{to{transform:scaleX(1)}}
+@keyframes grow{to{transform:scaleY(1)}}
+@keyframes lit{to{background:var(--a1);color:var(--ink);border-color:var(--a1);box-shadow:0 0 26px var(--glow)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,::before,::after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}.bg i{transform:none}ol::after{transform:none}}
+</style>
+</head>
+<body>
+<div class="pg"></div><div class="bg" aria-hidden="true"><i></i><i></i><i></i></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i1" viewBox="0 0 24 24"><path d="M4 6h16M4 12h9M4 18h6"/><circle cx="17" cy="16" r="3"/><path d="m19.2 18.2 2 2"/></symbol>
+<symbol id="i2" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+<symbol id="i3" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></symbol>
+<symbol id="i4" viewBox="0 0 24 24"><path d="m21 4-9 16-2-7-7-2z"/><path d="m10 13 11-9"/></symbol>
+<symbol id="i5" viewBox="0 0 24 24"><path d="M3 5h18v6H3zM3 15h10M3 19h7"/><path d="m17 15 3 3-3 3"/></symbol>
+</svg>
+
+<header class="hd"><div class="w">
+<a class="br" href="#top">Вячеслав Дерябин</a>
+<nav aria-label="Разделы страницы"><a href="#services">Услуги</a><a href="#process">Как работаю</a><a href="#cases">Кейсы</a><a href="#contacts">Контакты</a></nav>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="w">
+<h1><span>Парсинг,</span> <span>автоматизация,</span> <span class="gr">AI-интеграции</span></h1>
+<div class="hg">
+<div>
+<p class="lead">Собираю данные и превращаю рутину в работающий процесс. Python, таблицы, документы, боты. Пилот на ваших данных — до оплаты.</p>
+<div class="row">
+<a class="b" href="#services">Посмотреть услуги</a>
+<a class="b" href="https://kwork.ru/user/neuroexpertai" target="_blank" rel="noopener">Kwork</a>
+<a class="b" href="https://www.fl.ru/users/slava-derjbin/" target="_blank" rel="noopener">FL.ru</a>
+<a class="b p" href="https://t.me/slava9999_dev" target="_blank" rel="noopener">Написать в Telegram</a>
+</div>
+<div class="row">
+<span class="ch">Реальный клиентский сайт: <a href="https://arsenalcom.ru" target="_blank" rel="noopener">arsenalcom.ru</a></span>
+<span class="ch">5 услуг</span>
+<span class="ch">пилот за 10–30 минут</span>
+<span class="ch">код и права — отдельным соглашением</span>
+</div>
+</div>
+<figure class="tbl">
+<div class="th"><i>название</i><i>цена</i><i>источник</i><i>проверить</i></div>
+<div><span class="v">Герметик силиконовый АК-201</span><span class="v">420 ₽</span><span class="v mut">catalog/ak-201</span><span class="v mut">—</span></div>
+<div><span class="v">Компаунд эпоксидный ЭП-15</span><span class="v">1 250 ₽</span><span class="v mut">catalog/ep-15</span><span class="v mut">—</span></div>
+<div><span class="v">Клей анаэробный МФ-1</span><span class="v">390 ₽</span><span class="v mut">catalog/mf-1</span><span class="v warn">уточнить цену</span></div>
+<div><span class="v">Смазка разделительная СД-4</span><span class="v">680 ₽</span><span class="v mut">catalog/sd-4</span><span class="v mut">—</span></div>
+<div><span class="v">Герметик акриловый АК-77</span><span class="v warn">н/д</span><span class="v mut">catalog/ak-77</span><span class="v warn">нет в прайсе</span></div>
+<div><span class="v">Прайс-лист, лист 2</span><span class="v mut">—</span><span class="v mut">files/price.pdf</span><span class="v warn">проверить скан</span></div>
+<figcaption>Пример схемы результата: в каждой строке — источник, спорные значения помечены.</figcaption>
+</figure>
+</div>
+</div></section>
+
+<section id="services"><div class="w">
+<h2>Услуги</h2>
+<div class="g rv">
+<article class="c"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i1"/></svg>
+<h3>Парсинг каталогов и прайсов</h3>
+<p>Собираю данные с открытых страниц: каталоги, прайсы, публичные карточки. Пагинация, динамическая загрузка, дедупликация. В каждой строке — колонка «источник» со ссылкой на страницу.</p>
+<p class="r"><b>Отдаю:</b> Excel или CSV. Скрипт повторного запуска — по отдельному соглашению.</p>
+<p class="r"><b>Ограничение:</b> без входа в аккаунты и обхода защиты сайта.</p></article>
+
+<article class="c"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i2"/></svg>
+<h3>Документы в таблицу</h3>
+<p>PDF, Word, Excel и сканы (OCR) превращаю в таблицу по вашей схеме полей: название, тип, формат, что писать, если значения нет. Для точности нужны 2–3 образца документов.</p>
+<p class="r"><b>Отдаю:</b> Excel или CSV с колонками «источник» (файл и страница) и «проверить» — спорные значения помечены, а не угаданы.</p>
+<p class="r"><b>Ограничение:</b> паспорта и документы, удостоверяющие личность, не обрабатываю.</p></article>
+
+<article class="c"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i3"/></svg>
+<h3>Excel и Google Sheets</h3>
+<p>Сводные из нескольких файлов и листов, сверка выгрузок, отчёты по расписанию. В Google Sheets — Apps Script и триггеры, в Excel — формулы и Power Query.</p>
+<p class="r"><b>Отдаю:</b> готовый файл и инструкцию. Если отчёт должен запускаться без вашего участия — настраиваю планировщик Windows.</p>
+<p class="r"><b>Ограничение:</b> к 1С, банку и CRM не подключаюсь; работаю с выгрузками XLSX и CSV.</p></article>
+
+<article class="c"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i4"/></svg>
+<h3>Telegram-боты</h3>
+<p>Заявки, меню, админ-панель внутри Telegram, приём оплаты по ссылке ЮKassa или Robokassa. Сценарий, команды и тексты согласуем до старта.</p>
+<p class="r"><b>Отдаю:</b> код и инструкцию по запуску. Хостинг в услугу не входит.</p>
+<p class="r"><b>Ограничение:</b> токен бота и ключи платёжной системы вы вносите в файл настроек сами.</p></article>
+
+<article class="c"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i5"/></svg>
+<h3>Скраперы объявлений и поисковых выдач</h3>
+<p>Публичные объявления и карточки товаров по вашей ссылке на категорию или выдачу: заголовок, цена, описание, регион, дата, ссылка на фото и колонка «источник».</p>
+<p class="r"><b>Отдаю:</b> CSV, который открывается в Excel.</p>
+<p class="r"><b>Ограничение:</b> только публичные данные, без входа в аккаунты и обхода авторизации. Телефоны и данные продавцов не собираю. Условия площадки и использование данных — на стороне заказчика; первый шаг — проверка осуществимости.</p></article>
+</div>
+</div></section>
+
+<section id="process"><div class="w pr">
+<h2>Как работаю</h2>
+<ol class="rv" role="list">
+<li><span class="d" aria-hidden="true">1</span><strong>Задача.</strong>Пришлите ссылку, файл или пример — скажу, что реально получится и где ограничения. Без «уточню позже».</li>
+<li><span class="d" aria-hidden="true">2</span><strong>Пилот.</strong>За 10–30 минут покажу 50–100 строк или 3–5 документов на ваших данных. Вы видите качество до оплаты. Бесплатный пилот — в рамках одного источника.</li>
+<li><span class="d" aria-hidden="true">3</span><strong>Согласование.</strong>Фиксируем схему полей, объём, срок и стоимость.</li>
+<li><span class="d" aria-hidden="true">4</span><strong>Сдача.</strong>Отдаю готовый результат и инструкцию по запуску. Исходный код и права на него — отдельным соглашением. Правки после сдачи обсуждаются отдельно.</li>
+</ol>
+</div></section>
+
+<section id="cases"><div class="w">
+<h2>Кейсы</h2>
+<div class="cs">
+<article class="k rv">
+<div class="m"><p>Кейс 1</p><h3>Арсенал</h3>
+<a class="ch" href="https://arsenalcom.ru" target="_blank" rel="noopener">живой сайт: arsenalcom.ru</a>
+<figure class="shot"><img src="assets/arsenal-home.webp" alt="Главная страница сайта Арсенал" loading="lazy"></figure>
+<figure class="shot"><img src="assets/arsenal-catalog.webp" alt="Каталог материалов на сайте Арсенал" loading="lazy"></figure>
+<figure class="shot"><img src="assets/arsenal-form.webp" alt="Форма заявки на сайте Арсенал" loading="lazy"></figure>
+</div>
+<div class="t">
+<p>Арсенал — сайт промышленного поставщика герметиков, компаундов и клеев. Реальный клиент, живой сайт: arsenalcom.ru.</p>
+<p><b>Задача:</b> показать каталог материалов, объяснить инженерный подбор и довести заявку до менеджера.</p>
+<p><b>Что сделано:</b> каталог с фильтрами, подбор по отрасли и типу задачи, форма заявки, адаптивная вёрстка, деплой на сервере клиента.</p>
+<p><b>Стек:</b> <span class="ch">React 19</span><span class="ch">TypeScript</span><span class="ch">Vite</span><span class="ch">Supabase</span></p>
+<p><b>Доказательства:</b> живая ссылка и скриншоты главной страницы, каталога и формы заявки.</p>
+</div>
+</article>
+<article class="k rv">
+<div class="m"><p>Кейс 2</p><h3>Arbarea — приложение</h3>
+<figure class="shot"><img src="assets/arbarea-gallery.webp" alt="Изображение из галереи приложения Arbarea" loading="lazy"></figure>
+</div>
+<div class="t">
+<p>Arbarea — приложение для заказа изделий из дерева ручной работы.</p>
+<p><b>Живое приложение:</b> <a href="https://arbarea-mobile-app.vercel.app/" target="_blank" rel="noopener">arbarea-mobile-app.vercel.app</a></p>
+<p><b>Задача:</b> показать галерею работ, принять оплату и помочь покупателю выбрать изделие.</p>
+<p><b>Что сделано:</b> галерея и каталог, экран оплаты, AI-ассистент, адаптивный интерфейс.</p>
+<p><b>Доказательства:</b> живая ссылка, скриншот галереи, экрана оплаты с закрытыми платёжными данными и AI-ассистента.</p>
+</div>
+</article>
+</div>
+</div></section>
+
+<section id="limits"><div class="w">
+<h2>Границы и стоимость</h2>
+<div class="g2 rv">
+<div class="c"><h3>Границы</h3><p><b>Не беру:</b> закрытые базы и данные за авторизацией без доступа заказчика; обход капч и антибота; персональные данные.</p></div>
+<div class="c"><h3>Стоимость</h3><p>Стоимость фиксируется после пилота. Точная цена услуги — <a href="https://kwork.ru/user/neuroexpertai" target="_blank" rel="noopener">в кворке на Kwork</a>.</p></div>
+</div>
+</div></section>
+
+<section id="contacts"><div class="w rv">
+<h2>Начнём с пилота на ваших данных</h2>
+<div class="row">
+<a class="b p" href="https://t.me/slava9999_dev" target="_blank" rel="noopener">Написать в Telegram</a>
+<a class="b" href="mailto:neuroexpertv.d@gmail.com?subject=%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%BF%D0%B8%D0%BB%D0%BE%D1%82%D0%B0">Написать на почту</a>
+<a class="b" href="https://kwork.ru/user/neuroexpertai" target="_blank" rel="noopener">Kwork</a>
+<a class="b" href="https://www.fl.ru/users/slava-derjbin/" target="_blank" rel="noopener">FL.ru</a>
+<a class="b" href="https://github.com/Vyacheslav-Derybin" target="_blank" rel="noopener">GitHub</a>
+</div>
+<ul class="ct">
+<li>Почта: <a href="mailto:neuroexpertv.d@gmail.com">neuroexpertv.d@gmail.com</a></li>
+<li>Telegram: <a href="https://t.me/slava9999_dev" target="_blank" rel="noopener">@slava9999_dev</a></li>
+<li>Местоположение: Нижний Новгород, работаю удалённо.</li>
+</ul>
+</div></section>
+</main>
+
+<footer><div class="w">Вячеслав Дерябин — парсинг, автоматизация, AI-интеграции</div></footer>
+
+<script>
+document.documentElement.classList.add('js');
+var o=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');o.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -5% 0px'});
+document.querySelectorAll('.rv').forEach(function(e){o.observe(e)});
+var L=document.querySelectorAll('nav a'),so=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){L.forEach(function(a){a.removeAttribute('aria-current')});var a=document.querySelector('nav a[href="#'+x.target.id+'"]');if(a)a.setAttribute('aria-current','true')}})},{rootMargin:'-45% 0px -50% 0px'});
+['services','process','cases','contacts'].forEach(function(i){so.observe(document.getElementById(i))});
+if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+var r=document.documentElement,q=0;
+addEventListener('pointermove',function(e){
+if(!q)q=requestAnimationFrame(function(){q=0;r.style.setProperty('--px',e.clientX+'px');r.style.setProperty('--py',e.clientY+'px')});
+var c=e.target.closest&&e.target.closest('.c,.k');
+if(c){var b=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-b.left+'px');c.style.setProperty('--my',e.clientY-b.top+'px')}
+},{passive:true});
+document.querySelectorAll('.b').forEach(function(b){
+b.addEventListener('pointermove',function(e){var t=b.getBoundingClientRect();b.style.transform='translate('+(e.clientX-t.left-t.width/2)*.12+'px,'+(e.clientY-t.top-t.height/2)*.22+'px)'});
+b.addEventListener('pointerleave',function(){b.style.transform=''})})}
+</script>
+</body>
+</html>
