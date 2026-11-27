@@ -5,11 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#4A0F1A">
 <meta name="robots" content="noindex,nofollow">
-<title>ГРАННАТ — аудит сайта и рабочий пример</title>
-<meta property="og:title" content="ГРАННАТ — аудит сайта и рабочий пример">
-<meta property="og:description" content="Что нашёл на сайте студии: закрытая индексация, 404 в меню, пустая главная. И рабочий пример витрины с подарками.">
+<title>ГРАННАТ — аудит сайта и демо приложения</title>
+<meta name="description" content="Разбор сайта детской фотостудии: шесть найденных проблем и рабочее демо приложения — вход по коду, галерея, тарифы, заявка.">
+<link rel="canonical" href="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/demo/">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
+<meta property="og:site_name" content="ГРАННАТ">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:url" content="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/demo/">
+<meta property="og:title" content="ГРАННАТ — аудит сайта и рабочее демо приложения">
+<meta property="og:description" content="Шесть найденных проблем на сайте студии и рабочее демо: вход по коду, галерея, тарифы, заявка в мессенджер.">
+<meta property="og:image" content="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/assets/grannat-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Новогодний вход по коду в демо приложения ГРАННАТ">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ГРАННАТ — аудит сайта и демо приложения">
+<meta name="twitter:description" content="Шесть найденных проблем на сайте студии и рабочее демо приложения.">
+<meta name="twitter:image" content="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/assets/grannat-og.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234A0F1A'/%3E%3Cpath d='M32 14c7 0 12 5 12 12 0 9-8 12-8 20 0 4-2 6-4 6s-4-2-4-6c0-8-8-11-8-20 0-7 5-12 12-12z' fill='%23C9A227'/%3E%3C/svg%3E">
 <style>
 :root{
@@ -371,6 +383,19 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
  .reveal{opacity:1!important;transform:none!important}
 }
 </style>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"https://vyacheslav-derybin.github.io/neuroexpert-vitrina/demo/#website","url":"https://vyacheslav-derybin.github.io/neuroexpert-vitrina/demo/","name":"ГРАННАТ — демо приложения","inLanguage":"ru-RU","description":"Демонстрационный концепт приложения для детской фотостудии: вход по коду, галерея, тарифы и заявка."},
+{"@type":"Organization","@id":"https://vyacheslav-derybin.github.io/neuroexpert-vitrina/demo/#org","name":"Детская фотостудия ГРАННАТ","url":"https://xn--80aah5baps.xn--p1ai/","telephone":"+7-920-001-11-50","address":{"@type":"PostalAddress","addressLocality":"Нижний Новгород","addressCountry":"RU"}},
+{"@type":"WebApplication","@id":"https://vyacheslav-derybin.github.io/neuroexpert-vitrina/demo/#app","name":"Приложение ГРАННАТ","applicationCategory":"BusinessApplication","operatingSystem":"Any","url":"https://vyacheslav-derybin.github.io/neuroexpert-vitrina/demo/","isAccessibleForFree":true,"disambiguatingDescription":"Демонстрационный концепт интерфейса, не официальный сайт студии.","offers":[{"@type":"Offer","name":"Просто кадры","price":"1900","priceCurrency":"RUB"},{"@type":"Offer","name":"Подарок бабушке","price":"3200","priceCurrency":"RUB"},{"@type":"Offer","name":"Календарь на год","price":"4500","priceCurrency":"RUB"},{"@type":"Offer","name":"Всё под ёлку","price":"6900","priceCurrency":"RUB"}]},
+{"@type":"FAQPage","@id":"https://vyacheslav-derybin.github.io/neuroexpert-vitrina/demo/#faq","mainEntity":[
+{"@type":"Question","name":"Как открыть свои фото?","acceptedAnswer":{"@type":"Answer","text":"Введите код из конверта в окошке наверху — галерея откроется сразу."}},
+{"@type":"Question","name":"Как выбрать кадры для заказа?","acceptedAnswer":{"@type":"Answer","text":"Нажмите сердечко на кадре или внутри большого просмотра. Отмеченные кадры попадут в заказ."}},
+{"@type":"Question","name":"Как оплатить?","acceptedAnswer":{"@type":"Answer","text":"Картой онлайн заказ оплачивается сразу. Наличными — заказ появится среди новых со статусом «Ждёт подтверждения»."}},
+{"@type":"Question","name":"Успею ли я напечатать к Новому году?","acceptedAnswer":{"@type":"Answer","text":"Заказы на печать принимаем до 15 декабря. Цифровые кадры доступны всегда, сразу после оплаты."}}]}
+]}
+</script>
 </head>
 <body data-screen="kp">
 <canvas id="snow" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:2"></canvas>
@@ -812,7 +837,7 @@ $('#kpHead').hidden=screen!=='kp';$('#appHead').hidden=screen!=='demo';
 $('#garland').style.setProperty('--x','0');
 const y=saves[screen]||0;window.scrollTo(0,y);
 const h=$(screen==='kp'?'#view-kp h1':screen==='demo'?'#fairyTitle':'#giftCard h1');if(h)h.focus({preventScroll:true});
-document.title=screen==='kp'?'ГРАННАТ — аудит и рабочий пример':screen==='demo'?'Приложение Grannat — демо':'Открытка и альбом · ГРАННАТ';
+document.title=screen==='kp'?'ГРАННАТ — аудит сайта и демо приложения':screen==='demo'?'ГРАННАТ — демо приложения':'Открытка и альбом · ГРАННАТ';
 announce(screen==='kp'?'Предложение':screen==='demo'?'Демо-приложение':'Открытка');
 observe();
 }else if(anchor){const el=document.getElementById(anchor);if(el){const hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||72;let abs=0,n=el;while(n){abs+=n.offsetTop||0;n=n.offsetParent}window.scrollTo({top:abs-hh-18,behavior:'instant'})}}
