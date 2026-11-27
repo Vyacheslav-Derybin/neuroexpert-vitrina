@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4A0F1A">
+<meta name="robots" content="noindex,nofollow">
+<title>ГРАННАТ — аудит сайта и рабочий пример</title>
+<meta property="og:title" content="ГРАННАТ — аудит сайта и рабочий пример">
+<meta property="og:description" content="Что нашёл на сайте студии: закрытая индексация, 404 в меню, пустая главная. И рабочий пример витрины с подарками.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234A0F1A'/%3E%3Cpath d='M32 14c7 0 12 5 12 12 0 9-8 12-8 20 0 4-2 6-4 6s-4-2-4-6c0-8-8-11-8-20 0-7 5-12 12-12z' fill='%23C9A227'/%3E%3C/svg%3E">
+<style>
+:root{
+--granat-900:#4A0F1A;--granat-700:#7B1E2B;--granat-500:#A62B3C;
+--cream:#FBF6EF;--cream-2:#F3EAE0;--pine:#1E3A32;--brass:#C9A227;
+--ink:#241C1A;--muted:#6E625E;--line:#E2D6C9;
+--ok:#2E7D5B;--warn:#8A5200;--err:#A32020;--info:#2A5C8A;
+--header-h:72px;
+color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;font:17px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:-20%;z-index:-2;pointer-events:none;background:
+radial-gradient(60% 45% at 12% 8%,rgba(166,43,60,.16),transparent 70%),
+radial-gradient(55% 40% at 88% 18%,rgba(30,58,50,.16),transparent 72%),
+radial-gradient(50% 45% at 78% 88%,rgba(201,162,39,.14),transparent 70%),
+radial-gradient(45% 35% at 20% 92%,rgba(123,30,43,.12),transparent 70%);animation:drift 34s ease-in-out infinite alternate}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E")}
+@keyframes drift{from{transform:translate3d(-1.5%,-1%,0) scale(1)}to{transform:translate3d(2%,1.5%,0) scale(1.06)}}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--cream-2)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--granat-500),var(--granat-700));border-radius:10px;border:2px solid var(--cream-2)}
+::-webkit-scrollbar-thumb:hover{background:var(--granat-900)}
+body[data-screen="demo"] ::-webkit-scrollbar-track,body[data-screen="gift"] ::-webkit-scrollbar-track{background:var(--granat-900)}
+body[data-screen="demo"] ::-webkit-scrollbar-thumb,body[data-screen="gift"] ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--brass),var(--granat-500));border-color:var(--granat-900)}
+html{scrollbar-color:var(--granat-700) var(--cream-2)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--granat-500);outline-offset:3px;border-radius:4px}
+.app-head :focus-visible,#cart :focus-visible,.studio :focus-visible{outline-color:var(--brass)}
+#lb :focus-visible{outline-color:#fff}
+h1,h2,h3{color:var(--granat-900);line-height:1.12;letter-spacing:-.025em}
+h1{font-size:clamp(34px,6.2vw,54px);margin:0 0 18px;max-width:16ch}
+h2{font-size:clamp(25px,4.2vw,34px);margin:0 0 8px}
+h3{font-size:20px;margin:0 0 6px}
+p{margin:0 0 14px}
+.sub{color:var(--muted);max-width:62ch;margin:0 0 22px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.w{max-width:760px;margin:0 auto;padding:0 20px}
+.w-demo{max-width:1120px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border-radius:11px;background:var(--granat-700);color:#fff;font-weight:650;box-shadow:0 6px 18px rgba(123,30,43,.22);transition:background .18s,transform .18s}
+.btn:hover{background:var(--granat-500)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:var(--granat-700);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover{background:var(--cream-2)}
+.btn.sm{min-height:44px;padding:8px 16px;font-size:15px}
+.back-short{display:none}
+.cta-short{display:none}
+.nav-short{display:none}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:980px;padding:3px 11px;font-size:12px;font-weight:700}
+.badge.ok{background:#e4f3eb;color:var(--ok)}.badge.warn{background:#fbf0dd;color:var(--warn)}
+.badge.info{background:#e6eef7;color:var(--info)}.badge.err{background:#f9e5e5;color:var(--err)}
+/* snow / garland / confetti — one instance each */
+#snow{position:fixed;inset:0;pointer-events:none;z-index:2}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:70}
+#garland{position:fixed;left:0;right:0;top:var(--header-h);height:26px;z-index:31;pointer-events:none;opacity:.55;animation:glow 4s ease-out forwards}
+body[data-screen="gift"] #garland{display:none}
+@keyframes glow{from{opacity:.55}to{opacity:1}}
+#grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)'/%3E%3C/svg%3E")}
+/* КП header */
+.kp-head{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--line);box-shadow:0 3px 16px rgba(36,28,26,.07)}
+.kp-head .inner{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;min-height:var(--header-h)}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--granat-900);white-space:nowrap}
+.brand .dot{width:16px;height:16px;border-radius:50%;background:var(--granat-700);box-shadow:inset -3px -3px 0 var(--brass)}
+.kp-head nav{display:flex;gap:18px;margin-left:auto;font-size:15px;color:var(--muted)}
+.kp-head nav a{padding:8px 0;white-space:nowrap;border-bottom:2px solid transparent}
+.kp-head nav a[aria-current="true"]{color:var(--granat-700);border-color:var(--granat-700);font-weight:650}
+.kp-head .btn{min-height:44px;padding:8px 18px;font-size:15px}
+/* страховка: две шапки не могут быть видны одновременно */
+body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-screen="gift"] #kpHead,body[data-screen="gift"] #appHead{display:none!important}
+/* КП */
+#view-kp{padding-top:var(--header-h)}
+#view-kp [id]{scroll-margin-top:calc(var(--header-h) + 18px)}
+.hero{padding:52px 0 18px}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--granat-700);font-weight:700;margin-bottom:14px}
+.hero-row{display:grid;grid-template-columns:1fr 260px;gap:30px;align-items:center}
+@media(max-width:820px){.hero-row{grid-template-columns:1fr}.envelope-wrap{display:none}}
+.hero .date{color:var(--muted);font-size:15px;margin-top:16px}
+.envelope{position:relative;width:100%;aspect-ratio:4/3;transform-origin:center bottom}
+.envelope .body{position:absolute;inset:0;border-radius:12px;background:linear-gradient(135deg,var(--granat-700),var(--granat-900));box-shadow:0 18px 36px -14px rgba(74,15,26,.5)}
+.envelope .flap{position:absolute;left:0;right:0;top:0;height:52%;clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(160deg,var(--granat-500),var(--granat-700));transform-origin:top;animation:openFlap .9s .15s cubic-bezier(.2,.8,.2,1) forwards}
+.envelope .cards{position:absolute;left:50%;bottom:18%;width:70%;display:flex;justify-content:center;transform:translateX(-50%)}
+.envelope .cards i{display:block;width:32%;aspect-ratio:4/5;margin:0 -4%;border-radius:6px;border:3px solid var(--cream);background-size:cover;background-position:center;opacity:0;transform:translateY(40px) rotate(var(--r,0deg));animation:popCard .55s cubic-bezier(.2,.9,.2,1) forwards}
+.envelope .cards i:nth-child(2){--r:0deg;animation-delay:.42s}.envelope .cards i:nth-child(1){--r:-12deg;animation-delay:.5s}.envelope .cards i:nth-child(3){--r:12deg;animation-delay:.58s}
+.envelope.done .flap{transform:rotateX(180deg)}
+@keyframes openFlap{to{transform:rotateX(180deg)}}
+@keyframes popCard{to{opacity:1;transform:translateY(-26px) rotate(var(--r,0deg))}}
+.demo-cta{margin:6px 0 2px;padding:24px;border-radius:18px;background:var(--cream-2);border-left:4px solid var(--pine)}
+.demo-cta p{color:var(--muted);font-size:15px;margin:10px 0 0}
+.kp-sec{padding:40px 0 4px}
+.kp-sec>ul{margin:14px 0 0;padding-left:22px;color:var(--ink)}
+.kp-sec>ul li{margin-bottom:16px}
+.kp-sec>ul li b{color:var(--granat-900)}
+.note{background:var(--cream-2);border-left:4px solid var(--pine);border-radius:10px;padding:20px 22px;margin:22px 0}
+.note b{color:var(--pine)}
+.mini li{margin-bottom:12px;color:var(--muted)}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+@media(max-width:480px){.price-grid{grid-template-columns:1fr}}
+.price-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}
+.price-card h3{margin-bottom:10px}
+.price-card .sum{color:var(--granat-700);font-size:30px;font-weight:750;letter-spacing:-.03em}
+.price-card .term{color:var(--muted);font-size:15px}
+.after-price{color:var(--muted);font-size:15px}
+.deadline{background:var(--granat-900);color:#F7E9C9;border-radius:18px;padding:28px;margin:26px 0}
+.deadline h2{color:#F7E9C9;margin-bottom:12px}
+.deadline .num{font-size:clamp(46px,8vw,72px);font-weight:800;color:var(--brass);line-height:1;letter-spacing:-.04em}
+.deadline p{margin:12px 0 0}
+.deadline em{color:var(--brass);font-style:normal;font-weight:700}
+.contacts{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}
+.about-me{background:var(--cream-2);border-radius:12px;padding:18px 20px;margin:18px 0;font-size:15px;color:var(--muted)}
+.about-me b{color:var(--granat-900)}
+.sign{padding:26px 0 8px;color:var(--granat-900);font-weight:650}
+.sign small{display:block;font-weight:400;color:var(--muted);margin-top:6px}
+.disclaim{font-size:12px;color:var(--muted);padding:0 0 60px;opacity:.85}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+/* аудит и финальный блок */
+.audit{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+.audit li{display:grid;grid-template-columns:82px 1fr;gap:14px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.audit .tag{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:4px 8px;text-align:center;background:var(--cream-2);color:var(--muted)}
+.audit .tag.err{background:#f9e5e5;color:var(--err)}
+.audit .tag.warn{background:#fbf0dd;color:var(--warn)}
+.audit b{color:var(--granat-900)}
+.audit code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.86em;background:var(--cream-2);padding:1px 5px;border-radius:5px;word-break:break-word}
+@media(max-width:480px){.audit li{grid-template-columns:1fr;gap:6px}.audit .tag{justify-self:start}}
+.final-cta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 14px}
+@media(max-width:480px){.final-cta{grid-template-columns:1fr}}
+.final-cta .btn{min-height:56px;font-size:17px;text-align:center}
+.phone{color:var(--muted);font-size:15px;margin:0 0 18px}
+.phone a{color:var(--granat-700);font-weight:700;border-bottom:1px solid rgba(123,30,43,.3)}
+.calm{background:var(--cream-2);border-radius:10px;padding:14px 16px;font-size:15px;color:var(--muted)}
+.proof{width:100%;max-width:400px;border-radius:14px;background:#000;display:block;margin:14px 0}
+/* демо */
+.app-head{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--header-h);background:var(--granat-900);color:#fff;border-bottom:1px solid rgba(255,255,255,.12);box-shadow:0 3px 16px rgba(36,28,26,.18)}
+.app-head .inner{max-width:1120px;height:var(--header-h);margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px}
+.app-head .brand{color:#fff}
+.app-head nav{display:flex;gap:4px;margin-left:auto}
+.app-head nav a{padding:9px 12px;border-radius:9px;font-size:14px;white-space:nowrap;color:rgba(255,255,255,.78)}
+.app-head nav a[aria-current="true"]{background:rgba(255,255,255,.13);color:#fff}
+.icobtn{width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);color:#fff;position:relative}
+.icobtn .cnt{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;border-radius:9px;background:var(--brass);color:var(--granat-900);font-size:11px;font-weight:800;display:grid;place-items:center}
+.icobtn[aria-pressed="false"]{opacity:.42}
+#view-demo{padding-top:calc(var(--header-h) + 10px);min-height:100vh}
+#view-demo section{scroll-margin-top:calc(var(--header-h) + 18px)}
+#grid{scroll-margin-top:calc(var(--header-h) + 14px)}
+.lock{max-width:520px;margin:40px auto;padding:32px 24px;text-align:center;background:#fff;border-radius:18px;border:1px solid var(--line)}
+.lock h1{font-size:clamp(28px,5vw,42px);margin-bottom:10px}
+.lock input{width:100%;min-height:52px;border:1px solid var(--line);border-radius:11px;padding:0 14px;font:inherit;margin:12px 0}
+.lock .demo-code{background:var(--cream-2);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--muted);margin:16px 0}
+.lock .demo-code b{color:var(--granat-700);letter-spacing:.08em}
+.errbox{background:#f9e5e5;color:var(--err);border-radius:10px;padding:10px 14px;font-size:14px;margin-top:10px}
+.print-strip{margin:18px 0;padding:14px 18px;border-radius:12px;background:var(--pine);color:#fff;font-size:15px}
+.print-strip b{color:#F2D98A}
+.case-note{margin:18px 0;padding:14px 18px;border-radius:12px;background:var(--cream-2);border-left:4px solid var(--brass);font-size:15px;color:var(--muted)}
+.case-note b{color:var(--granat-900)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.ph{position:relative;display:block;width:100%;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background-size:cover;background-position:center;border:0;cursor:zoom-in}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .wm{position:absolute;inset:-40%;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='90'%3E%3Ctext x='6' y='52' transform='rotate(-27 60 45)' fill='white' fill-opacity='.34' font-size='14' font-family='sans-serif'%3EGrannat%3C/text%3E%3C/svg%3E");opacity:.9}
+.ph.unpaid .wm{display:block}.ph:not(.unpaid) .wm{display:none}
+.ph .heart{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:21px;background:rgba(0,0,0,.34)}
+.ph .n{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;border-radius:980px;padding:2px 9px;font-size:12px}
+.ph.sk{background:linear-gradient(100deg,var(--cream-2) 30%,#fff 50%,var(--cream-2) 70%);background-size:220% 100%;animation:shimmer 1.1s linear infinite}
+@keyframes shimmer{to{background-position:-220% 0}}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+.chip{min-height:44px;padding:8px 14px;border-radius:980px;border:1px solid var(--line);background:#fff;font-size:14px;color:var(--muted)}
+.chip.on{background:var(--granat-700);color:#fff;border-color:var(--granat-700)}
+.toolbar .spacer{margin-left:auto}
+.sets{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.set{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.set .price{font-size:28px;font-weight:750;color:var(--granat-700);letter-spacing:-.03em}
+.set ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px}
+.stepper{display:flex;align-items:center;gap:10px;margin-top:auto}
+.stepper button{width:44px;height:44px;border-radius:10px;background:var(--cream-2);font-size:20px}
+.stepper b{min-width:24px;text-align:center}
+.orders{display:grid;gap:14px}
+.order{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.order .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.order .code{font-family:ui-monospace,monospace;letter-spacing:.08em;color:var(--granat-900)}
+.order .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.emptybox{background:#fff;border:1px dashed var(--line);border-radius:14px;padding:28px;text-align:center;color:var(--muted)}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--granat-700);font-size:20px}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:10px 0 0;color:var(--muted)}
+.studio{margin-top:26px;padding:20px;border-radius:14px;background:var(--granat-900);color:#F7E9C9}
+.studio h2{color:#F7E9C9;font-size:22px}
+.studio input{min-height:48px;width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;padding:0 12px;font:inherit}
+.app-foot{padding:60px 20px 140px;text-align:center;color:var(--muted);font-size:14px}
+#sticky{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:29;width:min(560px,calc(100% - 28px));background:var(--granat-900);color:#fff;border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 14px 34px -10px rgba(74,15,26,.55)}
+#sticky b{color:var(--brass)}
+#cookie{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 10px);z-index:28;max-width:560px;margin:0 auto;min-height:56px;max-height:96px;padding:10px 14px;border-radius:12px;background:var(--cream-2);border:1px solid var(--line);box-shadow:0 8px 24px -12px rgba(36,28,26,.4);display:flex;align-items:center;gap:10px;font-size:13px}
+#cookie .btn{min-height:44px;padding:6px 14px;font-size:14px}
+@media(max-width:480px){.grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}}
+/* новогодняя главная демо */
+.fairy{position:relative;overflow:hidden;border-radius:24px;margin:16px 0 28px;padding:58px 18px 44px;min-height:520px;display:grid;place-items:center;text-align:center;background:radial-gradient(70% 50% at 50% 0%,rgba(201,162,39,.28),transparent 70%),linear-gradient(160deg,#0d2b24,#143d31 45%,#4A0F1A);box-shadow:0 24px 60px -26px rgba(0,0,0,.65)}
+.fairy::after{content:"";position:absolute;inset:auto 0 0;height:120px;background:linear-gradient(transparent,rgba(255,255,255,.14));pointer-events:none}
+.fairy-decor{position:absolute;inset:0;pointer-events:none}
+.moon{position:absolute;top:28px;right:34px;width:52px;height:52px;border-radius:50%;background:#F2D98A;box-shadow:0 0 36px 10px rgba(242,217,138,.35)}
+.star{position:absolute;color:#F7E9C9;opacity:.8;font-size:16px}.s1{top:70px;left:9%}.s2{top:130px;right:12%}.s3{top:200px;left:16%;font-size:12px}.s4{top:46px;left:38%;font-size:11px}
+.tree{position:absolute;left:5%;bottom:-16px;width:130px;height:190px;opacity:.9}
+.tree i{position:absolute;left:50%;transform:translateX(-50%);clip-path:polygon(50% 0,100% 100%,0 100%);background:linear-gradient(180deg,#2f6b4f,#173a2b)}
+.tree i:nth-child(1){top:0;width:62px;height:78px}.tree i:nth-child(2){top:42px;width:94px;height:92px}.tree i:nth-child(3){top:82px;width:124px;height:92px}
+.tree span{position:absolute;left:50%;bottom:0;width:16px;height:26px;transform:translateX(-50%);background:#6b4326}
+.present{position:absolute;bottom:0;width:34px;height:30px;border-radius:3px;background:var(--granat-500);box-shadow:inset 0 8px 0 rgba(201,162,39,.55)}
+.present::after{content:"";position:absolute;left:50%;top:0;width:7px;height:100%;transform:translateX(-50%);background:rgba(247,233,201,.55)}
+.p1{right:9%}.p2{right:15%;width:26px;height:24px;background:#C9A227}.p3{left:20%;width:22px;height:20px;background:#7B1E2B}
+.fairy-card{position:relative;z-index:2;width:min(100%,440px);margin:0 auto;padding:30px 26px 26px;border-radius:20px;background:rgba(251,246,239,.97);border:2px solid rgba(201,162,39,.65);box-shadow:0 26px 60px -20px rgba(0,0,0,.6),inset 0 0 0 6px rgba(255,255,255,.55);color:var(--ink)}
+.fairy-card::before,.fairy-card::after{content:"❄";position:absolute;top:12px;color:var(--pine);opacity:.45;font-size:18px}
+.fairy-card::before{left:14px}.fairy-card::after{right:14px}
+.window-frame{display:flex;justify-content:space-between;gap:5px;margin:-42px -12px 18px;padding:0 4px}
+.window-frame i{width:9px;height:9px;border-radius:50%;background:var(--brass);box-shadow:0 0 12px var(--brass);animation:bulb 1.7s ease-in-out infinite alternate}
+.window-frame i:nth-child(2n){background:var(--granat-500);box-shadow:0 0 12px var(--granat-500);animation-delay:.3s}
+.window-frame i:nth-child(3n){animation-delay:.6s}
+@keyframes bulb{from{opacity:.45}to{opacity:1}}
+.fairy-card .eyebrow{margin-bottom:10px;color:var(--granat-700)}
+.fairy-card h1{font-size:clamp(27px,5vw,38px);margin-bottom:12px}
+.fairy-sub{color:var(--muted);font-size:15px;margin-bottom:20px}
+.fairy-card label{display:block;text-align:left;font-weight:650;font-size:14px;margin-bottom:8px;color:var(--granat-900)}
+.fairy-card input{width:100%;min-height:54px;border:2px solid var(--brass);border-radius:12px;padding:0 14px;font:inherit;background:#fff}
+.fairy-card input:focus{outline:3px solid rgba(201,162,39,.4);outline-offset:2px}
+.fairy-card form .btn{width:100%;margin-top:12px;min-height:52px}
+.code-help{font-size:14px;color:var(--muted);margin:14px 0 0}
+.code-help b{color:var(--granat-700);letter-spacing:.06em}
+.ok-line{color:var(--ok);font-weight:700;margin:12px 0}
+#unlockedMsg .btn{width:100%}
+.orders-hub{margin-top:34px;padding-top:20px;border-top:1px solid var(--line)}
+.orders-hub h3{margin-top:26px}
+.order .pay-confirm{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.order .pay-confirm input{flex:1 1 160px;min-width:0;min-height:44px;border-radius:10px;border:1px solid var(--line);padding:0 12px;font:inherit;background:#fff;color:var(--ink)}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 12px}
+.contact-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 14px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:98px}
+.contact-card:hover{background:var(--cream-2)}
+.contact-card .ci{font-size:18px;font-weight:800;color:var(--granat-700)}
+.contact-card b{color:var(--granat-900)}
+.contact-card small{color:var(--muted);font-size:13px}
+.tiny{font-size:13px}
+@media(max-width:480px){.fairy{padding:30px 12px 24px;margin:8px 0 20px;border-radius:18px;min-height:0}.fairy-card{padding:20px 16px 18px}.fairy-card h1{font-size:26px;margin-bottom:8px}.fairy-sub{font-size:14px;margin-bottom:14px}.fairy-more{display:none}.window-frame{margin-top:-32px;margin-bottom:12px}.fairy-card label{margin-bottom:6px}.code-help{margin-top:10px;font-size:13px}.fairy-card form .btn{min-height:48px}.tree{transform:scale(.72);transform-origin:bottom left;left:0;bottom:-8px}.present{transform:scale(.8);transform-origin:bottom}.moon{width:40px;height:40px;top:18px;right:18px}}
+@media(max-width:360px){.contact-grid{grid-template-columns:1fr 1fr}.contact-card{min-height:88px;padding:12px 10px}}
+/* бренд ГРАННАТ */
+.brand .mark{width:30px;height:30px;flex:none}
+.brand small{display:block;font-size:10px;font-weight:500;letter-spacing:.02em;color:var(--muted);line-height:1.1}
+.app-head .brand small{color:rgba(255,255,255,.7)}
+.slogan{color:var(--brass);font-size:13px;letter-spacing:.06em;margin:0 0 12px}
+/* компактное окошко кода */
+.fairy{min-height:370px;padding:30px 16px 28px}
+.fairy-card{width:min(100%,400px);padding:20px 20px 18px}
+.fairy-card h1{font-size:clamp(23px,4.5vw,30px);margin-bottom:6px}
+.fairy-sub{font-size:13px;margin-bottom:14px}
+.code-row{display:flex;gap:8px}
+.code-row input{flex:1;min-width:0;min-height:46px}
+.code-row .btn{width:auto;flex:none;min-height:46px;margin:0;padding:8px 18px}
+.fairy-card form .btn{width:auto;margin-top:0;min-height:46px}
+.guest-btn{margin-top:10px;min-height:44px;width:100%;border:1px dashed rgba(201,162,39,.85);border-radius:10px;color:var(--granat-700);font-weight:650;font-size:14px}
+.guest-btn:hover{background:var(--cream-2)}
+.order-main{width:100%;margin-top:16px;min-height:52px}
+.guest-note{background:var(--cream-2);border-radius:12px;padding:18px;margin-top:24px;text-align:center;color:var(--muted)}
+.guest-note b{color:var(--granat-900)}
+/* заявка и уведомление */
+#lead{position:fixed;inset:0;z-index:125;display:grid;place-items:center;padding:14px;overflow:auto}
+.lead-box{width:min(100%,480px);max-height:calc(100dvh - 28px);overflow:auto;background:var(--cream);color:var(--ink);border-radius:18px;padding:20px;box-shadow:0 30px 80px rgba(0,0,0,.5);border:2px solid var(--brass)}
+.lead-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.lead-head h2{font-size:24px}
+.lead-head .icobtn{background:var(--granat-700)}
+.fld{display:block;font-size:14px;font-weight:650;margin-bottom:10px;color:var(--granat-900)}
+.fld input,.fld select,.fld textarea{display:block;width:100%;min-height:46px;margin-top:5px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink)}
+.fld textarea{min-height:76px;resize:vertical}
+.muted{font-weight:400;color:var(--muted)}
+.dest{border:1px solid var(--line);border-radius:10px;margin:0 0 14px;padding:10px 12px}
+.dest legend{font-size:14px;font-weight:650;padding:0 6px;color:var(--granat-900)}
+.dest label{display:inline-flex;align-items:center;gap:6px;min-height:40px;margin-right:12px;font-size:14px}
+.dest input{width:20px;height:20px;accent-color:var(--granat-700)}
+.messenger{margin:16px 0;border-radius:14px;overflow:hidden;background:#eef0f2;color:#1d1d1b;border:1px solid var(--line)}
+.messenger-head{display:flex;align-items:center;gap:10px;padding:12px;background:#fff;border-bottom:1px solid #dfe3e6}
+.messenger-head b{font-size:15px}.messenger-head small{display:block;color:#6b7280;font-size:12px}
+.mavatar{width:34px;height:34px;border-radius:50%;background:#be134d;color:#fff;display:grid;place-items:center;font-weight:800}
+.bubble{margin:12px;background:#fff;border-radius:12px;padding:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.bubble h3{margin:0 0 8px;font-size:16px}
+.bubble .row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid #eef0f2;font-size:14px}
+.bubble .row span:first-child{color:#6b7280}
+.bubble .stamp{color:#6b7280;font-size:12px;margin-top:8px}
+@media(max-width:480px){.lead-box{padding:16px}.fairy{min-height:0;padding:22px 12px 18px}.fairy-card{padding:16px 14px 14px}.fairy-card h1{font-size:24px;margin-bottom:4px}.slogan{margin-bottom:8px}.fairy-sub{font-size:12px;margin-bottom:10px}.fairy-card label{margin-bottom:4px}.guest-btn{min-height:40px;margin-top:6px;font-size:13px}.code-help{margin-top:6px;font-size:12px}}
+@media(max-width:360px){.dest label{min-height:36px;font-size:13px}}
+
+/* overlays */
+#scrim{position:fixed;inset:0;z-index:110;background:rgba(36,28,26,.5)}
+#cart{position:fixed;top:0;right:0;bottom:0;z-index:111;width:min(420px,100%);background:var(--granat-900);color:#F7E9C9;display:flex;flex-direction:column;transform:translateX(102%);transition:transform .25s ease;padding:calc(env(safe-area-inset-top,0px) + 16px) 20px calc(env(safe-area-inset-bottom,0px) + 16px)}
+#cart.open{transform:none}
+#cart h2{color:#F7E9C9;font-size:24px}
+#cart .cl{flex:1;overflow:auto}
+#cart .row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+#cart .rm{color:var(--brass);font-size:13px;text-decoration:underline}
+#cart .tot{display:flex;justify-content:space-between;font-size:20px;font-weight:750;padding:14px 0;color:#fff}
+#cart label{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#F7E9C9;margin:8px 0}
+#cart input[type=checkbox]{width:22px;height:22px;flex:none;accent-color:var(--brass)}
+#cart .pm{display:flex;gap:8px;margin:10px 0}
+#cart .pm button{flex:1;min-height:44px;border-radius:10px;background:rgba(255,255,255,.1);color:#F7E9C9}
+#cart .pm button.on{background:var(--brass);color:var(--granat-900);font-weight:700}
+#lb{position:fixed;inset:0;z-index:120;background:#0a0507;color:#fff;overflow:hidden;touch-action:none}
+#lb .stage{position:absolute;inset:0;overflow:hidden;touch-action:none}
+#lb .trk{display:flex;width:300%;height:100%;transform:translate3d(-33.3333%,0,0)}
+#lb .sl{width:33.3333%;height:100%;display:grid;place-items:center}
+#lb .sl .ph{width:min(90%,calc((100dvh - 190px)*.8));height:auto;aspect-ratio:4/5;border-radius:10px}
+#lb .lbt,#lb .lbb{position:absolute;left:0;right:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;pointer-events:none}
+#lb .lbt{top:0;background:linear-gradient(#0a0507cc,transparent)}
+#lb .lbb{bottom:0;justify-content:center;flex-wrap:wrap;background:linear-gradient(transparent,#0a0507cc)}
+#lb button{pointer-events:auto}
+#lb .ar{position:absolute;top:50%;margin-top:-22px;z-index:2}
+#lb .ar.l{left:16px}#lb .ar.r{right:16px}
+#lb.hide .lbt,#lb.hide .lbb,#lb.hide .ar{opacity:0;pointer-events:none}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 96px);transform:translateX(-50%);z-index:130;max-width:min(520px,90%);background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;text-align:center;font-size:14px;display:flex;gap:12px;align-items:center;justify-content:center}
+#toast button{color:var(--brass);font-weight:700}
+/* подарок */
+.gift{max-width:820px;margin:0 auto;padding:44px 20px 80px}
+.card-gift{background:#fff;border-radius:18px;padding:28px;box-shadow:0 18px 40px -20px rgba(74,15,26,.4);border:1px solid var(--line)}
+.card-gift .seal{width:64px;height:64px;border-radius:50%;background:var(--granat-700);display:grid;place-items:center;color:var(--brass);font-size:26px;margin-bottom:16px}
+.card-gift textarea{width:100%;min-height:90px;border-radius:10px;border:1px solid var(--line);padding:12px;font:inherit;resize:vertical;margin-bottom:14px}
+.paid-line{color:var(--ok);font-weight:650;margin:10px 0}
+@media(max-width:820px){
+ :root{--header-h:96px}
+ body[data-screen="demo"]{--header-h:104px}
+ .kp-head .inner{flex-wrap:wrap;align-content:center;gap:6px 10px;padding:7px 14px;min-height:var(--header-h)}
+ .kp-head .brand{font-size:16px}
+ .kp-head .btn{min-height:40px;padding:7px 14px;font-size:14px;margin-left:auto}
+ .kp-head nav{order:3;width:100%;margin:0;gap:5px;overflow-x:auto;height:32px;font-size:14px;scrollbar-width:none}
+ .kp-head nav::-webkit-scrollbar{display:none}
+ .kp-head nav a{padding:3px 8px;border:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:999px;background:#fff;line-height:24px}
+ .kp-head nav a[aria-current="true"]{background:var(--granat-700);color:#fff;border-color:var(--granat-700)}
+ .nav-long{display:none}.nav-short{display:inline}
+ .app-head nav{order:3;width:100%;margin:0;overflow-x:auto;height:30px;gap:2px;scrollbar-width:none}
+ .app-head nav::-webkit-scrollbar{display:none}
+ .app-head nav a{padding:4px 9px;font-size:13px}
+ .app-head .inner{height:var(--header-h);flex-wrap:wrap;align-content:center;gap:4px 6px;padding:5px 10px}
+ .app-head .brand{display:none}
+ .app-head #cartBtn{margin-left:auto}
+ .app-head .btn.sm{min-height:40px;padding:6px 10px;font-size:13px}
+ .back-long{display:none}.back-short{display:inline}
+ .cta-long{display:none}.cta-short{display:inline}
+ .hero{padding-top:26px}
+ .gift{padding-top:24px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+@media print{
+ @page{size:A4;margin:12mm}
+ body{background:#fff!important;color:#000!important;font:10pt/1.25 Arial,sans-serif}
+ body::before,body::after,#snow,#grain,#garland,#confetti,#cookie,#sticky,#toast,#scrim,#cart,#lb,#view-demo,#view-gift,#proof,.kp-head,.demo-cta,.envelope-wrap{display:none!important}
+ #view-kp{padding:0}.w{max-width:none;padding:0}.hero{padding:0 0 2px}.hero-row{grid-template-columns:1fr}
+ h1{font-size:19pt;margin:0 0 5px}h2{font-size:13pt;page-break-after:avoid;margin:7px 0 3px}p{margin:0 0 5px}
+ .kp-sec{padding:5px 0 0}.kp-sec>ul{margin:2px 0;padding-left:16px}.kp-sec>ul li{margin-bottom:3px}
+ .price-grid{margin:4px 0}.price-card{padding:6px}.deadline{padding:8px;border-radius:6px;margin:8px 0}.deadline .num{font-size:22pt}
+ .note,.about-me{padding:5px 9px;margin:5px 0}.sign{padding:5px 0}.disclaim{padding:0;font-size:8pt}.mini li{margin-bottom:3px}
+ .audit{gap:3px}.audit li{padding:3px 6px;grid-template-columns:60px 1fr;gap:6px}.audit .tag{font-size:7pt;padding:1px 4px}.audit code{font-size:8pt}
+ .final-cta{margin:4px 0;gap:6px}.final-cta .btn{min-height:0;padding:5px 8px;font-size:9pt;background:#fff;color:#000;border:1px solid #999;box-shadow:none}
+ .calm{padding:5px 9px;margin:5px 0}
+ .reveal{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body data-screen="kp">
+<canvas id="snow" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:2"></canvas>
+<div id="grain" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<svg id="garland" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 Q300 26 600 0 T1200 0" fill="none" stroke="#C9A227" stroke-opacity=".55" stroke-width="1.4"/><g id="bulbs"></g></svg>
+<div id="live" class="sr" aria-live="polite"></div>
+
+<!-- КП -->
+<header class="kp-head" id="kpHead"><div class="inner">
+<a class="brand" href="#top"><svg class="mark" viewBox="100 8 285 305" aria-hidden="true" focusable="false"><g fill="#be134d"><path d="M215.13,299.77c-55.84,0-101.11-45.26-101.11-101.11s45.27-101.11,101.11-101.11c1.79,0,3.57,.05,5.34,.14,32.32,1.68,60.62,18.54,77.9,43.58l25.95-19.34,51.96-38.72-51.35-20.94,2.38-55.53-47.17,27.99L242.78,0l-12.49,54c11.34,1.12,27.42,3.97,45.31,11.56,18.89,8.01,32.66,18.28,41.48,25.99-3.95,2.89-7.9,5.79-11.85,8.68h-.03c-14.19-13.01-31.21-22.98-50.02-28.89-8.85-2.78-18.09-4.66-27.63-5.54-4.09-.39-8.24-.58-12.43-.58-73.7,0-133.44,59.74-133.44,133.44s59.74,133.45,133.44,133.45c48.82,0,91.52-26.22,114.78-65.35l-27.81-16.51c-17.62,29.65-49.97,49.52-86.97,49.52Z"/><polygon points="314.28 178.74 218.86 178.74 218.86 211.92 315.38 211.92 347.93 211.92 348.58 211.92 348.58 178.74 347.1 178.74 314.28 178.74"/></g></svg><span><b>ГРАННАТ</b><small>детская фотостудия</small></span></a>
+<nav aria-label="Разделы предложения">
+<a href="#found"><span class="nav-long">Что нашёл</span><span class="nav-short">Нашёл</span></a>
+<a href="#offer"><span class="nav-long">Что предлагаю</span><span class="nav-short">Предлагаю</span></a>
+<a href="#price">Цены</a>
+<a href="#contact"><span class="nav-long">Связаться</span><span class="nav-short">Связь</span></a>
+</nav>
+</div></header>
+
+<main id="view-kp">
+<div class="w">
+<div class="hero" id="top">
+<p class="eyebrow">Детская фотостудия ГРАННАТ · аудит сайта · 27 ноября 2026</p>
+<div class="hero-row">
+<div>
+<h1 tabindex="-1">Сайт студии закрыт от поиска. Показываю, что нашёл.</h1>
+<p class="sub">Вячеслав Дерябин, веб-разработчик · короткий разбор, без обязательств</p>
+<p>Здравствуйте, Анна Владимировна!</p>
+<p>Недавно получил от вас конверт с фотосессией из детского сада — снимки тёплые, спасибо. Пока выбирал кадры, открыл сайт студии: сначала как родитель, потом как разработчик. Нашёл несколько вещей, из-за которых сайт теряет заказы. Ниже только то, что проверил вручную.</p>
+</div>
+<div class="envelope-wrap"><div class="envelope" id="envelope" aria-hidden="true"><div class="body"></div><div class="flap"></div><div class="cards"><i></i><i></i><i></i></div></div></div>
+</div>
+</div>
+
+<section class="kp-sec reveal" id="found">
+<h2 tabindex="-1">Что нашёл на сайте</h2>
+<p class="sub">Объясняю простыми словами. Каждый пункт могу показать на экране телефона.</p>
+<ol class="audit">
+<li><span class="tag err">Поиск</span><div><b>Студию не найти в поиске.</b> На сайте стоит невидимая для глаз пометка «не показывать в Яндексе и Google». Поисковики её слушаются — и показывают вместо вас конкурентов. Всё равно что закрыть витрину шторкой.</div></li>
+<li><span class="tag err">Кнопки</span><div><b>«О нас» и «Вопросы и ответы» ведут в никуда.</b> Нажимаете пункт меню — открывается пустая страница «Страница не найдена». Родитель не узнает, где вы находитесь, и уходит.</div></li>
+<li><span class="tag err">Указатели</span><div><b>У сайта нет «карты» и правил для поисковика.</b> Это две служебные страницы, которые подсказывают, где что лежит. Без них поисковик заходит к вам, но не понимает, какие страницы нужно показывать людям.</div></li>
+<li><span class="tag warn">Первый экран</span><div><b>Главная не объясняет, что здесь можно заказать.</b> Нет большого заголовка вроде «Детские фотосессии в детском саду — выберите кадры онлайн». Родитель зашёл и сразу не понимает, что делать дальше.</div></li>
+<li><span class="tag warn">Защита</span><div><b>Сайт собран на старой версии Joomla — 3.10.11.</b> Это программа, на которой работает сайт. Исправлений и обновлений безопасности для неё нет уже больше трёх лет. Если находят способ взломать, никто его не закроет.</div></li>
+<li><span class="tag">Мелочь</span><div><b>Внизу написано «© 2024».</b> Одна строчка, но она сразу говорит родителю: сайт давно не обновляли.</div></li>
+</ol>
+</section>
+
+<section class="kp-sec reveal" id="proof" hidden>
+<h2 tabindex="-1">Пруф: меню на iPhone</h2>
+<p class="sub">Запись экрана: пункты в меню есть, страницы не открываются.</p>
+<video class="proof" controls playsinline preload="metadata" src="proof.mp4" onerror="this.closest('section').hidden=true"></video>
+</section>
+
+<section class="kp-sec reveal" id="offer">
+<h2 tabindex="-1">Что предлагаю</h2>
+<p>Не менять сайт целиком, а собрать к декабрю витрину, которая работает поверх текущего каталога. Родитель вводит код с конверта и видит не только кадры, но и готовые подарки.</p>
+<ul>
+<li><b>Подарки вместо файлов.</b> Календарь-домик, магниты, открытки, набор «Подарок бабушке». Родитель приходит за кадрами, а может уйти с подарком — без допродаж в переписке.</li>
+<li><b>Открытка одной ссылкой.</b> Семья отправляет альбом бабушке. Та открывает без регистрации и оплаты.</li>
+<li><b>Понятные статусы.</b> Заказ виден сразу, оплата наличными подтверждается кодом, срок печати указан датой.</li>
+<li><b>Работающие «О нас» и FAQ.</b> Половина вопросов в поддержку снимается до звонка.</li>
+</ul>
+<div class="note"><b>Что не трогаю.</b> Оплату, хранение фото, домен, договор оферты и вашу базу заказов. Витрина работает поверх текущего сайта. Переносить ничего не нужно, риска потерять сезон нет.</div>
+<p>Всё это можно потрогать: внизу кнопка «Демо приложения». Это не макет на картинке, а рабочий интерфейс.</p>
+</section>
+
+<section class="kp-sec reveal" id="price">
+<h2 tabindex="-1">Стоимость и сроки</h2>
+<div class="price-grid">
+<div class="price-card"><h3>Точечные доработки текущего сайта</h3><div class="sum">от 12 000 ₽</div><div class="term">3–5 дней</div></div>
+<div class="price-card"><h3>Новогодняя витрина с подарками</h3><div class="sum">от 35 000 ₽</div><div class="term">7–10 дней</div></div>
+</div>
+<p class="after-price">Точную смету назову после короткого разговора: она зависит от того, как у вас устроены оплата и хранение кадров. Разговор ни к чему не обязывает.</p>
+<p class="calm">Чтобы витрина отработала декабрь, стартовать лучше до 10 декабря. Если позже — сделаем спокойно, без аврала.</p>
+</section>
+
+<section class="kp-sec reveal" id="contact">
+<h2 tabindex="-1">Посмотреть вживую</h2>
+<p>Я Вячеслав Дерябин, веб-разработчик из Нижнего Новгорода. Делаю витрины, панели и автоматизацию на Python; в 2024–2026 подключал оплату и ботов для заказчиков. Показываю пилот на ваших данных до оплаты.</p>
+<p>Ниже два входа: рабочий пример и моё портфолио. Если откликнется — позвоните или ответьте на письмо.</p>
+<div class="about-me"><b>Коротко о подходе.</b> Сначала показываю, как это работает на ваших кадрах и вашем сценарии. Потом называю точную смету. Если не подойдёт — ничего не должны.</div>
+<p>С наступающим! Пусть декабрь будет спокойным, а заказов — много.</p>
+<div class="sign">Вячеслав Дерябин · веб-разработчик<small>+7 904 047-63-83 · vyacheslav-derybin.github.io</small></div>
+<div class="final-cta">
+<a class="btn" href="#/demo" data-go="demo">Демо приложения →</a>
+<a class="btn ghost" href="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/" target="_blank" rel="noopener">Моё портфолио ↗</a>
+</div>
+<p class="phone">Или просто позвоните: <a href="tel:+79040476383">+7 904 047-63-83</a></p>
+<p class="disclaim">Приложенный пример — демонстрационный концепт интерфейса, не официальный сайт детской фотостудии ГРАННАТ. Кадры в примере заменены авторскими иллюстрациями, фотографии клиентов не используются. Оплата имитируется.</p>
+</section>
+</div>
+</main>
+
+<!-- демо -->
+<header class="app-head" id="appHead" hidden><div class="inner">
+<button class="btn ghost sm" data-go="kp" aria-label="К предложению"><span class="back-long">← К предложению</span><span class="back-short">← КП</span></button>
+<a class="brand" href="#demo-top"><svg class="mark" viewBox="100 8 285 305" aria-hidden="true" focusable="false"><g fill="#be134d"><path d="M215.13,299.77c-55.84,0-101.11-45.26-101.11-101.11s45.27-101.11,101.11-101.11c1.79,0,3.57,.05,5.34,.14,32.32,1.68,60.62,18.54,77.9,43.58l25.95-19.34,51.96-38.72-51.35-20.94,2.38-55.53-47.17,27.99L242.78,0l-12.49,54c11.34,1.12,27.42,3.97,45.31,11.56,18.89,8.01,32.66,18.28,41.48,25.99-3.95,2.89-7.9,5.79-11.85,8.68h-.03c-14.19-13.01-31.21-22.98-50.02-28.89-8.85-2.78-18.09-4.66-27.63-5.54-4.09-.39-8.24-.58-12.43-.58-73.7,0-133.44,59.74-133.44,133.44s59.74,133.45,133.44,133.45c48.82,0,91.52-26.22,114.78-65.35l-27.81-16.51c-17.62,29.65-49.97,49.52-86.97,49.52Z"/><polygon points="314.28 178.74 218.86 178.74 218.86 211.92 315.38 211.92 347.93 211.92 348.58 211.92 348.58 178.74 347.1 178.74 314.28 178.74"/></g></svg><span><b>ГРАННАТ</b><small>детская фотостудия</small></span></a>
+<nav id="appNav" aria-label="Разделы демо" hidden><a href="#demo-gallery">Галерея</a><a href="#demo-tariffs">Тарифы</a><a href="#demo-contacts">Связь</a><a href="#demo-faq">Вопросы</a></nav>
+<button class="icobtn" id="cartBtn" aria-label="Корзина"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11H6.2L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg><span class="cnt" id="cartCnt" aria-live="polite" hidden>0</span></button>
+</div></header>
+
+<main id="view-demo" hidden>
+<div class="w-demo">
+<div id="demo-top"></div>
+
+<section class="fairy" id="fairy" aria-labelledby="fairyTitle">
+<div class="fairy-decor" aria-hidden="true">
+<div class="moon"></div><div class="star s1">✦</div><div class="star s2">✧</div><div class="star s3">✦</div><div class="star s4">✧</div>
+<div class="tree"><i></i><i></i><i></i><span></span></div>
+<div class="present p1"></div><div class="present p2"></div><div class="present p3"></div>
+</div>
+<div class="fairy-card" id="codeCard">
+<div class="window-frame" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<span class="flake fl" aria-hidden="true">❄</span><span class="flake fr" aria-hidden="true">❄</span>
+<p class="eyebrow">Детская фотостудия ГРАННАТ</p>
+<p class="slogan">Сохраняем детство в каждом кадре</p>
+<h1 id="fairyTitle" tabindex="-1">Приложение ГРАННАТ</h1>
+<p class="fairy-sub">Код из конверта — и кадры ваши. Нет кода? Зайдите как гость. <span class="fairy-more">Внутри — галерея, тарифы и заказы.</span></p>
+<form id="codeForm">
+<label for="codeInput">Код из конверта</label>
+<div class="code-row"><input id="codeInput" placeholder="GRANNAT-2026" autocomplete="off" aria-describedby="codeHelp"><button class="btn" type="submit">Войти</button></div>
+</form>
+<div id="codeErr" class="errbox" hidden></div>
+<p class="code-help" id="codeHelp">Демо-код: <b>GRANNAT-2026</b> <button class="btn ghost sm" id="fillCode">Вставить</button></p>
+<button class="guest-btn" id="enterGuest">Нет кода? Войти как гость →</button>
+<div id="unlockedMsg" hidden>
+<p class="ok-line" id="unlockedText">✓ Код принят.</p>
+<button class="btn" id="enterGallery">Перейти в галерею ↓</button>
+</div>
+</div>
+</section>
+
+<div id="demoBody" hidden>
+<h1 class="sr">Демо приложения ГРАННАТ</h1>
+
+<section id="demo-gallery">
+<h2 tabindex="-1">Галерея кадров</h2>
+<p class="sub">Нажмите на сердечко — кадр попадёт в заказ. Нажмите на саму фотографию — откроется большой просмотр.</p>
+<div class="toolbar">
+<button class="chip on" data-filter="all" aria-pressed="true">Все кадры</button>
+<button class="chip" data-filter="fav" aria-pressed="false">Избранное</button>
+<span class="spacer"></span>
+<button class="chip" data-mass="all">Отметить все</button>
+<button class="chip" data-mass="none">Снять все</button>
+</div>
+<div class="grid" id="grid"></div>
+
+<div class="orders-hub" id="ordersHub">
+<h3>Новые заказы</h3>
+<p class="sub">Заказ уже есть, но оплата наличными ещё не подтверждена. Введите код заказа — кадры откроются сразу.</p>
+<div id="ordersNew" class="orders"></div>
+<h3>Старые заказы</h3>
+<p class="sub">Оплаченные заказы: можно открыть альбом, отправить его бабушке и скачать кадры.</p>
+<div id="ordersOld" class="orders"></div>
+</div>
+<div class="guest-note" id="guestOrders" hidden><b>Вы вошли без кода.</b> Здесь появятся ваши заказы, когда вы введёте код из конверта. Тарифы можно заказать и сейчас.<br><button class="btn ghost sm" id="backToCode">Войти по коду</button></div>
+</section>
+
+<section id="demo-tariffs"><h2 tabindex="-1">Тарифы</h2><p class="sub">Цена указана за весь тариф. Можно выбрать несколько.</p><div class="sets" id="sets"></div><button class="btn order-main" id="orderBtn">Заказать тариф →</button><p class="sub tiny">Код не нужен — можно сразу оставить заявку.</p></section>
+
+<section id="demo-contacts">
+<h2 tabindex="-1">Для связи</h2>
+<p class="sub">По вопросам заказа и печати — напишите или позвоните студии.</p>
+<div class="contact-grid">
+<button class="contact-card" data-social="phone"><span class="ci">☎</span><b>Позвонить</b><small>+7 920 001-11-50</small></button>
+<button class="contact-card" data-social="vk"><span class="ci">ВК</span><b>ВКонтакте</b><small>Написать сообщение</small></button>
+<button class="contact-card" data-social="wa"><span class="ci">✆</span><b>WhatsApp</b><small>Написать в чат</small></button>
+<button class="contact-card" data-social="mail"><span class="ci">✉</span><b>Почта</b><small>hello@grannat.ru</small></button>
+</div>
+<p class="sub tiny">Соцсети показаны для примера: реальные страницы в демо не подключены.</p>
+</section>
+
+<section id="demo-faq" class="faq"><h2 tabindex="-1">Вопросы и ответы</h2>
+<details><summary>Как открыть свои фото?</summary><p>Введите код из конверта в окошке наверху — галерея откроется сразу.</p></details>
+<details><summary>Как выбрать кадры для заказа?</summary><p>Нажмите сердечко на кадре или внутри большого просмотра. Отмеченные кадры попадут в заказ.</p></details>
+<details><summary>Как оплатить?</summary><p>Картой онлайн заказ оплачивается сразу. Наличными — заказ появится среди новых со статусом «Ждёт подтверждения».</p></details>
+<details><summary>Успею ли я напечатать к Новому году?</summary><p>Заказы на печать принимаем до 15 декабря. Цифровые кадры доступны всегда, сразу после оплаты.</p></details>
+<details><summary>Фото не открываются на телефоне</summary><p>Напишите нам и назовите код заказа — поможем в тот же день.</p></details>
+<details><summary>Когда можно скачать фото?</summary><p>Сразу после подтверждения оплаты. Картой — сразу, наличными — после ввода кода заказа.</p></details>
+<details><summary>Я оплатил, а заказа не видно</summary><p>Откройте «Новые заказы»: заказ лежит там с момента оформления. Если его нет, напишите нам.</p></details>
+</section>
+</div>
+
+<div class="app-foot">Концепт интерфейса для детской фотостудии ГРАННАТ. Не официальный сайт. Оплата имитируется, кадры — демонстрационные.<br><button class="btn ghost sm" data-go="kp">Вернуться к предложению</button></div>
+</div>
+</main>
+
+
+<!-- подарок -->
+<main id="view-gift" hidden><div class="gift">
+<div class="card-gift" id="giftCard"><div class="seal">✦</div><h1 tabindex="-1">Открытка и альбом</h1><div id="giftBody"></div></div>
+<div style="margin-top:20px;text-align:center"><button class="btn ghost sm" data-go="kp">Это демо-концепт → к предложению</button></div>
+</div></main>
+
+<div id="lead" role="dialog" aria-modal="true" aria-labelledby="leadTitle" hidden>
+<div class="lead-box">
+<div class="lead-head"><h2 id="leadTitle">Заказать тариф</h2><button class="icobtn" id="leadClose" aria-label="Закрыть">✕</button></div>
+<form id="leadForm">
+<label class="fld">Ваше имя<input name="name" required placeholder="Как к вам обращаться" autocomplete="name"></label>
+<label class="fld">Телефон<input name="phone" type="tel" required placeholder="+7 999 000-00-00" autocomplete="tel"></label>
+<label class="fld">Тариф<select name="tariff" id="leadTariff"></select></label>
+<label class="fld">Код с конверта <span class="muted">(если есть)</span><input name="code" placeholder="Необязательно"></label>
+<label class="fld">Комментарий<textarea name="note" rows="3" placeholder="Что важно учесть"></textarea></label>
+<fieldset class="dest"><legend>Куда прислать заявку</legend>
+<label><input type="radio" name="dest" value="vk" checked> ВКонтакте</label>
+<label><input type="radio" name="dest" value="wa"> WhatsApp</label>
+<label><input type="radio" name="dest" value="mail"> Почта студии</label>
+</fieldset>
+<button class="btn" type="submit" style="width:100%">Отправить заявку</button>
+<p class="tiny">Это демо: заявка никуда не уходит, ниже показан пример уведомления.</p>
+</form>
+<div id="leadDone" hidden>
+<p class="ok-line">✓ Заявка принята</p>
+<div class="messenger">
+<div class="messenger-head"><span class="mavatar">Г</span><div><b id="msgDest">ВКонтакте</b><small>Уведомление · сейчас</small></div></div>
+<div class="bubble" id="leadCard"></div>
+</div>
+<button class="btn ghost" id="leadAgain">Оставить ещё заявку</button>
+</div>
+</div>
+</div>
+
+<!-- оверлеи -->
+<div id="scrim" hidden></div>
+<aside id="cart" aria-label="Корзина" inert><div style="display:flex;justify-content:space-between;align-items:center"><h2>Корзина</h2><button class="icobtn" id="cartClose" aria-label="Закрыть корзину">✕</button></div>
+<div class="cl" id="cartList"></div><div id="cartFoot"></div></aside>
+<div id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фото" hidden><div class="stage" id="stage"><div class="trk" id="track"></div></div>
+<button class="icobtn ar l" id="prev" aria-label="Предыдущий кадр">‹</button><button class="icobtn ar r" id="next" aria-label="Следующий кадр">›</button>
+<div class="lbt"><span id="lbNum"></span><div><button class="icobtn" id="lbHeart" aria-label="Отметить кадр">♥</button><button class="icobtn" id="lbClose" aria-label="Закрыть просмотр">✕</button></div></div>
+<div class="lbb"><button class="btn ghost sm" id="lbDownload">Скачать кадр</button><button class="btn sm" id="lbToSets">Выбрать набор</button></div></div>
+<button id="sticky" hidden><span id="stickyText"></span><span>Корзина →</span></button>
+<div id="cookie" hidden><span>Используем cookie для работы демо.</span><button class="btn sm" id="cookieOk">Понятно</button></div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+const $=s=>document.querySelector(s),rub=n=>n.toLocaleString('ru-RU')+' ₽';
+const esc=x=>String(x||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const KEY='grannat_one_v1', DEMO_CODE='GRANNAT-2026';
+const DEF={unlocked:false,guest:false,hearts:[],cart:{sets:{},addons:[]},orders:[],leads:[],signature:'',filter:'all',sort:'num',snow:true,garland:true};
+let S;try{S=Object.assign({},DEF,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){S=JSON.parse(JSON.stringify(DEF))}
+S.cart=S.cart||{sets:{},addons:[]};S.hearts=S.hearts||[];S.orders=S.orders||[];S.leads=S.leads||[];
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function toast(msg,undo){const t=$('#toast');t.innerHTML='';t.append(document.createTextNode(msg));if(undo){const b=document.createElement('button');b.textContent='Вернуть';b.onclick=()=>{undo();t.hidden=true};t.append(b)}t.hidden=false;clearTimeout(t._tm);t._tm=setTimeout(()=>t.hidden=true,3600)}
+function announce(m){$('#live').textContent=m}
+function newCode(){const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='GRN-';for(let i=0;i<8;i++)s+=a[Math.floor(Math.random()*a.length)];return s}
+/* art */
+const H=[335,345,8,320,355,215,330,15,190,340],SK=['#f2c9a5','#e8b88f','#f6d3b8','#d9a57a'],HR=['#5a3a22','#2d1b12','#b07a3c','#8a5a2b'],SH=['#f4f1ee','#cfe3f2','#f2d4dc','#dfe8cf'],SC=[1,.9,1.25,1,1.4,.9,1.1,1.3,.95,1.2],CX=[200,150,215,190,205,230,180,200,170,210],PR=['dog','books','balloon','bear'];
+function art(i){const h=H[i%H.length],s=SC[i%SC.length],x=CX[i%CX.length],sk=SK[i%4],hr=HR[(i+1)%4],sh=SH[(i+2)%4],hat=i%3!==2;
+const bl=[[60,90,150,120,0],[330,140,170,150,1],[120,330,190,110,1],[300,380,160,120,0],[200,40,130,90,1]].map(b=>`<ellipse cx="${b[0]}" cy="${b[1]}" rx="${b[2]}" ry="${b[3]}" fill="url(#${b[4]?'L':'D'})"/>`).join('');
+const P={dog:`<g transform="translate(300 408)"><ellipse rx="62" ry="48" fill="#f3e9db"/><ellipse cx="-30" cy="-50" rx="34" ry="30" fill="#f3e9db"/><ellipse cx="-62" cy="-46" rx="13" ry="28" fill="#8a5a3a"/><circle cx="-42" cy="-56" r="3.5" fill="#222"/><ellipse cx="-24" cy="-42" rx="9" ry="7" fill="#3a2a22"/></g>`,books:`<g transform="translate(36 412)"><rect width="120" height="22" y="-22" rx="3" fill="#a5543c"/><rect x="8" y="-44" width="104" height="22" rx="3" fill="#d9b66a"/><rect x="14" y="-64" width="92" height="20" rx="3" fill="#3f6b8c"/></g>`,balloon:`<path d="M330 246Q322 400 300 480" stroke="#fff" stroke-opacity=".7" fill="none"/><ellipse cx="330" cy="198" rx="38" ry="46" fill="hsl(${h+180},60%,55%)"/><ellipse cx="318" cy="182" rx="9" ry="14" fill="#fff" opacity=".4"/>`,bear:`<g transform="translate(70 412)"><ellipse rx="52" ry="46" fill="#b98652"/><circle cy="-58" r="34" fill="#b98652"/><circle cx="-24" cy="-88" r="12" fill="#b98652"/><circle cx="24" cy="-88" r="12" fill="#b98652"/><ellipse cy="-50" rx="14" ry="11" fill="#e8cba0"/><circle cx="-12" cy="-64" r="3.5" fill="#222"/><circle cx="12" cy="-64" r="3.5" fill="#222"/></g>`}[PR[i%4]];
+const arm=a=>`<rect x="${a}" y="80" width="36" height="215" rx="18" fill="${sh}" stroke="#000" stroke-opacity=".1"/>`;
+const hatS=hat?`<ellipse cy="-88" rx="88" ry="17" fill="#e2c387"/><path d="M-50 -88Q-52 -150 0 -150Q52 -150 50 -88Z" fill="#efd7a2"/><path d="M-50 -96Q0 -88 50 -96V-110Q0 -102 -50 -110Z" fill="hsl(215,45%,40%)"/>`:'';
+const fig=`<path d="M-92 400V120Q-92 62 -40 56H40Q92 62 92 120V400Z" fill="${sh}"/>${arm(-124)}${arm(88)}<circle cx="-106" cy="300" r="19" fill="${sk}"/><circle cx="106" cy="300" r="19" fill="${sk}"/><rect x="-18" y="14" width="36" height="48" fill="${sk}"/><path d="M-30 56L0 92L30 56Z" fill="#fff"/><path d="M-17 84L0 92L-17 100ZM17 84L0 92L17 100Z" fill="hsl(${h},50%,32%)"/><circle cx="-52" cy="-38" r="11" fill="${sk}"/><circle cx="52" cy="-38" r="11" fill="${sk}"/><ellipse cy="-40" rx="52" ry="58" fill="${sk}"/><path d="M-54 -50Q-56 -108 0 -106Q56 -108 54 -50Q40 -78 0 -74Q-40 -78 -54 -50Z" fill="${hr}"/>${hatS}<circle cx="-19" cy="-38" r="5.5" fill="#2b1a14"/><circle cx="19" cy="-38" r="5.5" fill="#2b1a14"/><circle cx="-17.5" cy="-40" r="1.8" fill="#fff"/><circle cx="20.5" cy="-40" r="1.8" fill="#fff"/><path d="M-29 -53Q-19 -58 -10 -53M10 -53Q19 -58 29 -53" stroke="${hr}" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M0 -30Q-5 -20 0 -18" stroke="#8a4a2a" stroke-opacity=".4" stroke-width="2.5" fill="none"/><path d="M-16 -8Q0 5 16 -8" stroke="#a8473a" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="-34" cy="-18" r="9" fill="#f08a8a" opacity=".3"/><circle cx="34" cy="-18" r="9" fill="#f08a8a" opacity=".3"/>`;
+const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><defs><linearGradient id="g" x1="0" y1="0" x2=".4" y2="1"><stop offset="0" stop-color="hsl(${h},40%,62%)"/><stop offset="1" stop-color="hsl(${h+24},36%,34%)"/></linearGradient><radialGradient id="v" cx=".5" cy=".45" r=".75"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".32"/></radialGradient><radialGradient id="L"><stop offset="0" stop-color="hsl(${h+22},55%,80%)" stop-opacity=".85"/><stop offset="1" stop-color="hsl(${h+22},55%,80%)" stop-opacity="0"/></radialGradient><radialGradient id="D"><stop offset="0" stop-color="hsl(${h-14},55%,42%)" stop-opacity=".85"/><stop offset="1" stop-color="hsl(${h-14},55%,42%)" stop-opacity="0"/></radialGradient></defs><rect width="400" height="500" fill="url(#g)"/><g>${bl}</g><rect y="410" width="400" height="90" fill="hsl(28,35%,30%)"/><path d="M0 440H400M0 470H400" stroke="#000" stroke-opacity=".18"/><g transform="translate(${x} 250) scale(${s})">${fig}</g>${P}<rect width="400" height="500" fill="url(#v)"/></svg>`;
+return encodeURIComponent(svg)
+}
+const PHOTO_DATA=/*PHOTOS_START*/[]/*PHOTOS_END*/;
+const F=Array.from({length:24},(_,i)=>({n:2596+i,_u:null,get uri(){return this._u||(this._u=PHOTO_DATA[i]||('data:image/svg+xml,'+art(i)))}}));
+const src=i=>F[i].uri;
+const SETS=[
+{id:'fr',name:'Просто кадры',price:1900,list:['12 отобранных кадров','Ретушь и цветокоррекция','Цифровая выдача в ZIP']},
+{id:'gr',name:'Подарок бабушке',price:3200,list:['10 кадров','Альбом с открыткой и подписью','Одна ссылка для отправки']},
+{id:'cal',name:'Календарь на год',price:4500,list:['13 кадров','Календарь-домик на 2027 год','Обложка и разворот']},
+{id:'all',name:'Всё под ёлку',price:6900,list:['20 кадров','Календарь, магниты, открытки','Приоритетная печать до 15 декабря']}];
+const setById=id=>SETS.find(s=>s.id===id);
+const ADD=[{id:'mag',name:'Магниты, набор 3 шт.',price:700},{id:'card',name:'Открытки, 5 шт.',price:500}];
+const paidFrames=()=>new Set(S.orders.filter(o=>o.status==='paid'||o.status==='print'||o.status==='ready').flatMap(o=>o.frames||[]));
+function frameHTML(i){const f=F[i],fav=S.hearts.includes(f.n),paid=paidFrames().has(f.n)||S.unlocked;
+return `<div class="ph ${paid?'':'unpaid'}" data-frame="${i}" role="button" tabindex="0" aria-label="Кадр ${f.n}, открыть просмотр"><img src="${src(i)}" alt="Кадр ${f.n}" loading="lazy" decoding="async"><span class="wm"></span><button class="heart" data-heart="${f.n}" aria-label="${fav?'Убрать из выбранных':'Отметить кадр'}">${fav?'♥':'♡'}</button><span class="n">${f.n}</span></div>`}
+function filtered(){let a=F.map((_,i)=>i);
+if(S.filter==='fav')a=a.filter(i=>S.hearts.includes(F[i].n));
+if(S.filter==='new')a=a.filter(i=>!Object.values(S.cart.sets).some(n=>n>0)&&!paidFrames().has(F[i].n));
+if(S.sort==='fav')a.sort((x,y)=>(S.hearts.includes(F[y].n)?1:0)-(S.hearts.includes(F[x].n)?1:0)||x-y);
+return a}
+function drawGrid(){const g=$('#grid'),ids=filtered();
+g.innerHTML=ids.length?ids.map(frameHTML).join(''):'<div class="emptybox" style="grid-column:1/-1">Ничего не найдено. Снимите фильтр или отметьте кадры сердцем.<br><button class="btn ghost sm" data-reset-filter>Сбросить фильтр</button></div>'}
+function drawSets(){$('#sets').innerHTML=SETS.map(s=>`<div class="set"><h3>${s.name}</h3><ul>${s.list.map(x=>`<li>${x}</li>`).join('')}</ul><div class="price">${rub(s.price)}</div><div class="stepper"><button data-step="${s.id}" data-d="-1" aria-label="Уменьшить ${s.name}">−</button><b>${S.cart.sets[s.id]||0}</b><button data-step="${s.id}" data-d="1" aria-label="Добавить ${s.name}">+</button></div></div>`).join('')+
+`<div class="set"><h3>Дополнения к тарифу</h3>${ADD.map(a=>`<label style="display:flex;gap:8px;align-items:center;min-height:44px"><input type="checkbox" data-addon="${a.id}" ${S.cart.addons.includes(a.id)?'checked':''}><span>${a.name} · ${rub(a.price)}</span></label>`).join('')}</div>`}
+function cartTotal(){let t=Object.entries(S.cart.sets).reduce((s,[id,n])=>s+(setById(id)?setById(id).price*n:0),0);t+=S.cart.addons.reduce((s,id)=>s+(ADD.find(a=>a.id===id)?ADD.find(a=>a.id===id).price:0),0);return t}
+function drawCart(){const cnt=Object.values(S.cart.sets).reduce((a,b)=>a+b,0)+S.cart.addons.length;
+$('#cartCnt').textContent=cnt;$('#cartCnt').hidden=!cnt;
+const fc=document.querySelector('[data-filter="fav"]');if(fc)fc.textContent=S.hearts.length?`Избранное (${S.hearts.length})`:'Избранное';
+const parts=[];for(const [id,n] of Object.entries(S.cart.sets))if(n)parts.push(`<div class="row"><span>${setById(id).name} × ${n}</span><b>${rub(setById(id).price*n)}</b></div>`);
+for(const id of S.cart.addons){const a=ADD.find(x=>x.id===id);if(a)parts.push(`<div class="row"><span>${a.name}</span><b>${rub(a.price)}</b></div>`)}
+if(S.hearts.length)parts.push(`<div class="row"><span>Кадры: ${S.hearts.slice(0,12).join(', ')}${S.hearts.length>12?' …':''}</span><b>${S.hearts.length} шт.</b></div>`);
+$('#cartList').innerHTML=parts.length?parts.join(''):'<div class="emptybox">В корзине пока пусто. Выберите набор или отметьте кадры.</div>';
+$('#cartFoot').innerHTML=parts.length?`<div class="tot"><span>Итого</span><span>${rub(cartTotal())}</span></div><label><input type="checkbox" id="consent"><span>Согласен на обработку данных и использование фото ребёнка согласно оферте студии. Формулировку предоставит заказчик.</span></label><div class="pm"><button class="on" data-pm="card">Картой онлайн</button><button data-pm="cash">Наличными</button></div><button class="btn" id="payBtn" style="width:100%">Оформить заказ</button><p style="font-size:12px;margin-top:10px;opacity:.7">Демо-оплата: деньги не списываются. На iOS кадр сохраняется через ⋯ → «Сохранить изображение».</p>`:'';
+const st=$('#sticky'),h=S.hearts.length,pos=Object.values(S.cart.sets).reduce((a,b)=>a+b,0)+S.cart.addons.length;
+const fw=n=>n%10===1&&n%100!==11?'кадр':(n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?'кадра':'кадров');
+st.hidden=!(h||pos);if(!st.hidden)$('#stickyText').textContent=pos?`В корзине ${pos} поз.`:`Выбрано ${h} ${fw(h)}`;
+}
+const icon={paid:'✓',wait:'◷',print:'◔',ready:'★'};
+const label={paid:'Оплачен',wait:'Ждёт подтверждения',print:'В печати',ready:'Готов'};
+const cls={paid:'ok',wait:'warn',print:'info',ready:'ok'};
+function orderCard(o){const done=['paid','print','ready'].includes(o.status);
+const acts=done?`<button class="btn sm" data-gift="${o.id}">Открыть альбом</button><button class="btn ghost sm" data-dlall="${o.id}">Скачать все</button>`:`<form class="pay-confirm" data-order="${o.id}"><input placeholder="Код заказа" aria-label="Код заказа"><button class="btn sm" type="submit">Подтвердить</button></form><p class="errbox" hidden></p>`;
+return `<div class="order"><div class="top"><h3>Заказ ${o.id}</h3><span class="badge ${cls[o.status]}">${icon[o.status]} ${label[o.status]}</span></div><p>${(o.sets||[]).map(id=>setById(id)?setById(id).name:id).join(', ')||'Цифровые кадры'}</p><p class="code">Код: ${o.code}</p><div class="acts">${acts}<button class="btn ghost sm" data-del="${o.id}">Удалить</button></div></div>`}
+function drawOrders(){const fresh=S.orders.filter(o=>o.status==='wait'),old=S.orders.filter(o=>o.status!=='wait');
+$('#ordersNew').innerHTML=fresh.length?fresh.map(orderCard).join(''):'<div class="emptybox">Новых заказов нет.</div>';
+$('#ordersOld').innerHTML=old.length?old.map(orderCard).join(''):'<div class="emptybox">Оплаченных заказов пока нет.</div>'}
+function drawAll(){drawGrid();drawSets();drawCart();drawOrders()}
+function skeleton(){const g=$('#grid');g.querySelectorAll('.ph').forEach(e=>e.classList.add('sk'));setTimeout(()=>g.querySelectorAll('.ph').forEach(e=>e.classList.remove('sk')),420)}
+function applyToggles(){window.snowAllowed=()=>!!S.snow;const sb=$('#snowBtn'),gb=$('#garlandBtn');if(sb)sb.setAttribute('aria-pressed',String(!!S.snow));if(gb)gb.setAttribute('aria-pressed',String(!!S.garland));$('#snow').hidden=!S.snow;$('#garland').hidden=!S.garland;if(window.snowSwitch)window.snowSwitch(!!S.snow)}
+function seedOrders(){if(S.orders.length)return;S.orders=[{id:'G-2401',code:'GRN-7K2M-9Q',status:'paid',sets:['cal','mag'],frames:[2596,2597,2598,2599],total:5200},{id:'G-2402',code:'GRN-3X5P-2B',status:'wait',sets:['fr'],frames:[2600,2601],total:1900}];save()}
+function openCart(o){const c=$('#cart');if(!o&&c.contains(document.activeElement))$('#cartBtn').focus();$('#scrim').hidden=!o;c.classList.toggle('open',o);c.toggleAttribute('inert',!o);c.setAttribute('aria-hidden',String(!o));if(o)setTimeout(()=>$('#cartClose').focus(),40)}
+/* lightbox */
+const lb=$('#lb'),track=$('#track'),stage=$('#stage');let cur=0,busy=0,z=1,tx=0,ty=0,pts=new Map(),sx=undefined,sy=undefined,st0=0,dx=0,dy=0,mode='',raf=0,d0=1,z0=1,m0x=0,m0y=0,t0x=0,t0y=0,lt=0,lx=0,ly=0,tapT=0;
+const fr=i=>F[(i+F.length)%F.length];
+const slide=i=>`<div class="sl"><div class="ph ${paidFrames().has(fr(i).n)?'':'unpaid'}" style="background-image:url('${src((i+F.length)%F.length)}')"><img src="${src((i+F.length)%F.length)}" alt="Кадр ${fr(i).n}" decoding="async"><span class="wm"></span></div></div>`;
+function flat(){track.style.transition='none';track.style.transform='translate3d(-33.3333%,0,0)'}
+function lbMeta(){$('#lbNum').textContent=`Кадр ${F[cur].n}, ${cur+1} из ${F.length}`;$('#lbHeart').textContent=S.hearts.includes(F[cur].n)?'♥':'♡';$('#lbHeart').setAttribute('aria-label',S.hearts.includes(F[cur].n)?'Убрать из выбранных':'Отметить кадр')}
+function showSlides(){track.innerHTML=[-1,0,1].map(d=>slide(cur+d)).join('');flat();lbMeta()}
+function openLb(i){cur=(i+F.length)%F.length;const prev=document.activeElement;$('#toast').hidden=true;lb.hidden=false;lb.classList.remove('hide');document.documentElement.style.overflow='hidden';showSlides();$('#lbClose').focus();lb._prevFocus=prev}
+function closeLb(){lb.hidden=true;document.documentElement.style.overflow='';z=1;tx=ty=0;pts.clear();mode='';track.querySelectorAll('.ph img').forEach(e=>{e.style.transition='';e.style.transform=''})}
+function step(d){if(busy)return;busy=1;z=1;tx=ty=0;track.style.transition='transform .28s cubic-bezier(.2,.8,.2,1)';track.style.transform=`translate3d(${d>0?-66.6667:0}%,0,0)`;setTimeout(()=>{cur=(cur+d+F.length)%F.length;const k=d>0?track.firstChild:track.lastChild;d>0?track.append(k):track.prepend(k);k.innerHTML=slide(cur+d);flat();lbMeta();busy=0},290)}
+const el=()=>track.children[1].firstChild;
+function clamp(){const e=el(),mx=Math.max(0,(z*e.offsetWidth-stage.clientWidth)/2),my=Math.max(0,(z*e.offsetHeight-stage.clientHeight)/2);tx=Math.max(-mx,Math.min(mx,tx));ty=Math.max(-my,Math.min(my,ty))}
+function ap(a){const e=el();e.style.transition=a?'transform .25s ease':'none';e.style.transform=z>1?`translate(${tx}px,${ty}px) scale(${z})`:''}
+const dist=()=>{const[a,b]=[...pts.values()];return Math.hypot(a.x-b.x,a.y-b.y)||1};
+const mid=()=>{const[a,b]=[...pts.values()];return[(a.x+b.x)/2,(a.y+b.y)/2]};
+stage.addEventListener('pointerdown',e=>{if(busy)return;try{stage.setPointerCapture(e.pointerId)}catch(x){}pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+if(pts.size===2){cancelAnimationFrame(raf);raf=0;mode='pinch';d0=dist();z0=z;[m0x,m0y]=mid();t0x=tx;t0y=ty;lb.classList.add('hide')}
+else if(pts.size===1){sx=e.clientX;sy=e.clientY;st0=e.timeStamp;dx=dy=0;mode='';t0x=tx;t0y=ty}});
+const apply=()=>{raf=0;if(mode==='x'){track.style.transition='none';track.style.transform=`translate3d(calc(-33.3333% + ${dx}px),0,0)`}else if(mode==='y'&&dy>0){track.style.transition='none';track.style.transform=`translate3d(-33.3333%,${dy}px,0)`;lb.style.opacity=Math.max(.3,1-dy/500)}};
+stage.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+if(mode==='pinch'&&pts.size===2){z=Math.max(1,Math.min(5,z0*dist()/d0));const[mx,my]=mid();tx=t0x+mx-m0x;ty=t0y+my-m0y;clamp();ap(0);return}
+if(pts.size!==1||sx===undefined)return;dx=e.clientX-sx;dy=e.clientY-sy;
+if(!mode&&(Math.abs(dx)>8||Math.abs(dy)>8))mode=z>1?'pan':(Math.abs(dx)>Math.abs(dy)?'x':'y');
+if(mode==='pan'){tx=t0x+dx;ty=t0y+dy;clamp();ap(0)}else if(mode&&!raf)raf=requestAnimationFrame(apply)});
+function tap(e){const n=e.timeStamp;if(n-lt<300&&Math.hypot(e.clientX-lx,e.clientY-ly)<40){clearTimeout(tapT);lt=0;if(z>1){z=1;tx=ty=0;ap(1)}else{const r=el().getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;z=2.6;tx=-(e.clientX-cx)*(z-1);ty=-(e.clientY-cy)*(z-1);clamp();ap(1);lb.classList.add('hide')}return}
+lt=n;lx=e.clientX;ly=e.clientY;clearTimeout(tapT);tapT=setTimeout(()=>lb.classList.toggle('hide'),260)}
+const end=e=>{if(!pts.has(e.pointerId))return;pts.delete(e.pointerId);cancelAnimationFrame(raf);raf=0;
+if(mode==='pinch'){mode='';if(!pts.size&&z<1.08){z=1;tx=ty=0;ap(1)}return}
+if(sx===undefined)return;const v=Math.abs(dx)/Math.max(e.timeStamp-st0,1),m=mode;sx=undefined;mode='';
+if(m==='x'&&(Math.abs(dx)>60||(v>.5&&Math.abs(dx)>24)))step(dx<0?1:-1);
+else if(m==='y'&&dy>110)closeLb();
+else if(m==='x'||m==='y'){track.style.transition='transform .22s ease';track.style.transform='translate3d(-33.3333%,0,0)';lb.style.opacity=''}
+else if(!m&&e.type==='pointerup')tap(e)};
+stage.addEventListener('pointerup',end);stage.addEventListener('pointercancel',end);
+stage.addEventListener('wheel',e=>{e.preventDefault();z=Math.max(1,Math.min(5,z*(e.deltaY<0?1.15:1/1.15)));if(z<1.02){z=1;tx=ty=0}else lb.classList.add('hide');clamp();ap(0)},{passive:false});
+function toggleHeart(n){const i=S.hearts.indexOf(n);if(i<0)S.hearts.push(n);else S.hearts.splice(i,1);save();drawAll();lbMeta();announce(i<0?'Кадр отмечен':'Кадр снят')}
+async function downloadFrame(i){try{const r=await fetch(src(i)),b=await r.blob(),ext=(b.type.split('/')[1]||'jpg').replace('jpeg','jpg').replace('svg+xml','svg'),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=`grannat-${F[i].n}.${ext}`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}catch(e){toast('Не удалось скачать кадр')}}
+function downloadAll(o){const ids=o&&o.frames?o.frames.map(n=>F.findIndex(f=>f.n===n)).filter(i=>i>=0):S.hearts.map(n=>F.findIndex(f=>f.n===n)).filter(i=>i>=0);if(!ids.length){toast('Нет кадров для скачивания');return}toast('Скачивание началось…');ids.forEach((i,k)=>setTimeout(()=>downloadFrame(i),350*k))}
+function confetti(){const c=$('#confetti'),x=c.getContext('2d');const d=Math.min(devicePixelRatio||1,2);c.width=innerWidth*d;c.height=innerHeight*d;x.setTransform(d,0,0,d,0,0);const p=Array.from({length:70},()=>({x:Math.random()*innerWidth,y:-20-Math.random()*200,v:2+Math.random()*4,c:['#C9A227','#7B1E2B','#1E3A32','#A62B3C'][Math.floor(Math.random()*4)],r:3+Math.random()*5,a:Math.random()*6}));const t0=performance.now();(function f(t){x.clearRect(0,0,innerWidth,innerHeight);for(const q of p){q.y+=q.v;q.a+=.05;q.x+=Math.sin(q.a)*1.2;x.fillStyle=q.c;x.fillRect(q.x,q.y,q.r,q.r*1.6)}if(t-t0<900)requestAnimationFrame(f);else x.clearRect(0,0,innerWidth,innerHeight)})(t0)}
+function pay(){if(!cartTotal()){toast('Корзина пуста');return}if(!$('#consent')||!$('#consent').checked){toast('Поставьте галочку согласия');return}
+const mode=document.querySelector('.pm .on')?document.querySelector('.pm .on').dataset.pm:'card';
+const o={id:'G-'+String(Date.now()).slice(-6),code:newCode(),status:mode==='cash'?'wait':'paid',sets:Object.entries(S.cart.sets).filter(([,n])=>n).map(([id])=>id),addons:[...S.cart.addons],frames:[...S.hearts].sort((a,b)=>a-b),total:cartTotal()};
+S.orders.unshift(o);S.cart={sets:{},addons:[]};S.hearts=[];save();drawAll();openCart(false);
+toast(mode==='cash'?`Демо-заказ ${o.id} создан, ждёт подтверждения`:`Демо-заказ ${o.id} оплачен (имитация)`);announce('Заказ оформлен');if(mode==='card')confetti();
+if(location.hash.indexOf('#/demo')===0)location.hash='#demo-gallery';else $('#demo-gallery').scrollIntoView()}
+function renderGift(id){const o=S.orders.find(x=>x.id===id);const box=$('#giftBody');if(!o){box.innerHTML='<div class="emptybox">Такой открытки нет. <button class="btn ghost sm" data-go="kp">Вернуться к предложению</button></div>';return}
+if(o.status==='wait'){box.innerHTML='<div class="emptybox">Этот заказ ещё ждёт подтверждения наличными. <button class="btn ghost sm" data-go="kp">К предложению</button></div>';return}
+const frames=(o.frames||[]);box.innerHTML=`<p class="sub">Семья собрала альбом и отправляет его вам одной ссылкой.</p>
+<label for="sign">Подпись семьи</label><textarea id="sign" placeholder="С наступающим! Спасибо за год ❤">${S.signature||''}</textarea>
+<button class="btn" id="copyGift">Скопировать ссылку на открытку</button><p class="paid-line">Оплачено семьёй. Вам ничего платить не нужно.</p>
+<div class="grid" style="margin-top:20px">${frames.length?frames.map(n=>{const i=F.findIndex(f=>f.n===n);return i<0?'':`<div class="ph"><img src="${src(i)}" alt="Кадр ${n}"><span class="n">${n}</span></div>`}).join(''):'<div class="emptybox">В альбоме пока нет кадров.</div>'}</div>`}
+/* общий клик */
+document.addEventListener('click',e=>{const t=e.target;
+const go=t.closest('[data-go]');if(go){location.hash=go.dataset.go==='demo'?'#/demo':'#/';return}
+const cp=t.closest('[data-copy]');if(cp){navigator.clipboard.writeText(cp.dataset.copy).then(()=>toast('Текст скопирован')).catch(()=>toast('Скопируйте текст вручную'));return}
+const hr=t.closest('[data-heart]');if(hr){toggleHeart(+hr.dataset.heart);return}
+const fr=t.closest('[data-frame]');if(fr){openLb(+fr.dataset.frame);return}
+const st=t.closest('[data-step]');if(st){const id=st.dataset.step,d=+st.dataset.d,n=(S.cart.sets[id]||0)+d;if(n>0)S.cart.sets[id]=n;else delete S.cart.sets[id];save();drawAll();return}
+const ad=t.closest('[data-addon]');if(ad){const id=ad.dataset.addon,i=S.cart.addons.indexOf(id);if(ad.checked&&i<0)S.cart.addons.push(id);if(!ad.checked&&i>=0)S.cart.addons.splice(i,1);save();drawAll();return}
+const pm=t.closest('[data-pm]');if(pm){pm.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('on'));pm.classList.add('on');return}
+const fl=t.closest('[data-filter]');if(fl){S.filter=fl.dataset.filter;save();document.querySelectorAll('[data-filter]').forEach(b=>{b.classList.toggle('on',b===fl);b.setAttribute('aria-pressed',String(b===fl))});drawGrid();return}
+const so=t.closest('[data-sort]');if(so){S.sort=so.dataset.sort;save();document.querySelectorAll('[data-sort]').forEach(b=>{b.classList.toggle('on',b===so);b.setAttribute('aria-pressed',String(b===so))});drawGrid();return}
+const ma=t.closest('[data-mass]');if(ma){S.hearts=ma.dataset.mass==='all'?F.map(f=>f.n):[];save();drawAll();return}
+if(t.closest('[data-reset-filter]')){S.filter='all';S.sort='num';save();document.querySelectorAll('[data-filter],[data-sort]').forEach(b=>{const on=b.dataset.filter==='all'||b.dataset.sort==='num';b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))});drawGrid();return}
+const ac=t.closest('[data-act]');if(ac){const o=S.orders.find(x=>x.id===ac.dataset.act);if(o){o.status='paid';save();drawAll();confetti();toast('Код принят: доступ открыт')}return}
+const gf=t.closest('[data-gift]');if(gf){location.hash='#/gift/'+gf.dataset.gift;return}
+const dl=t.closest('[data-dl]');if(dl){const i=F.findIndex(f=>f.n===+dl.dataset.dl);if(i>=0)downloadFrame(i);return}
+const da=t.closest('[data-dlall]');if(da){const o=S.orders.find(x=>x.id===da.dataset.dlall);if(o)downloadAll(o);return}
+const de=t.closest('[data-del]');if(de){const id=de.dataset.del,idx=S.orders.findIndex(x=>x.id===id),o=S.orders[idx];if(idx>=0){S.orders.splice(idx,1);save();drawOrders();toast('Заказ удалён',()=>{S.orders.splice(idx,0,o);save();drawOrders()})}return}
+if(t.closest('#cartBtn')||t.closest('#sticky')){openCart(true);return}
+if(t.closest('#cartClose')||t.closest('#scrim')){openCart(false);closeLead();return}
+if(t.closest('#payBtn')){pay();return}
+if(t.closest('#lbClose')){closeLb();return}
+if(t.closest('#lbHeart')){toggleHeart(F[cur].n);return}
+if(t.closest('#prev')){step(-1);return}if(t.closest('#next')){step(1);return}
+if(t.closest('#lbDownload')){downloadFrame(cur);return}
+if(t.closest('#lbToSets')){closeLb();location.hash='#demo-tariffs';return}
+if(t.closest('#snowBtn')){S.snow=!S.snow;save();applyToggles();return}
+if(t.closest('#garlandBtn')){S.garland=!S.garland;save();applyToggles();return}
+if(t.closest('#fillCode')){$('#codeInput').value=DEMO_CODE;$('#codeErr').hidden=true;return}
+if(t.closest('#cookieOk')){$('#cookie').hidden=true;try{sessionStorage.setItem('grannat_cookie','1')}catch(x){}return}
+if(t.closest('#copyGift')){navigator.clipboard.writeText(location.href).then(()=>toast('Ссылка скопирована')).catch(()=>toast('Скопируйте ссылку из адресной строки'));return}
+if(t.closest('#writeStudio')||t.closest('#writeStudio2')){navigator.clipboard.writeText('+79200011150').then(()=>toast('Телефон студии скопирован: +7 920 001-11-50')).catch(()=>toast('Телефон студии: +7 920 001-11-50'));return}
+if(t.closest('#enterGallery')){const el=$('#demo-gallery');if(el){const hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||72;window.scrollTo({top:el.getBoundingClientRect().top+scrollY-hh-18,behavior:'smooth'})}return}
+if(t.closest('#enterGuest')){revealApp('guest');setTimeout(()=>$('#enterGallery').focus({preventScroll:true}),60);return}
+if(t.closest('#backToCode')){backToCode();return}
+if(t.closest('#orderBtn')){openLead();return}
+const sc=t.closest('[data-social]');if(sc){if(sc.dataset.social==='phone'){navigator.clipboard.writeText('+79200011150').then(()=>toast('Телефон скопирован: +7 920 001-11-50')).catch(()=>toast('Телефон: +7 920 001-11-50'))}else toast('Это демо: страница в соцсети не подключена');return}
+});
+function revealApp(mode,quiet){S.unlocked=mode==='code';S.guest=mode==='guest';save();$('#codeForm').hidden=true;$('#codeErr').hidden=true;$('#codeHelp').hidden=true;$('#enterGuest').hidden=true;$('#unlockedMsg').hidden=false;$('#appNav').hidden=false;$('#demoBody').hidden=false;$('#unlockedText').textContent=mode==='guest'?'✓ Вы вошли как гость. Можно смотреть кадры и заказывать тарифы.':'✓ Код принят. Галерея открыта.';$('#ordersHub').hidden=mode==='guest';$('#guestOrders').hidden=mode!=='guest';drawAll();if(!quiet){skeleton();announce(mode==='guest'?'Гостевой вход':'Доступ открыт');confetti()}}
+function backToCode(){S.unlocked=false;S.guest=false;save();$('#codeForm').hidden=false;$('#codeHelp').hidden=false;$('#enterGuest').hidden=false;$('#unlockedMsg').hidden=true;$('#appNav').hidden=true;$('#demoBody').hidden=true;$('#codeInput').value='';$('#codeErr').hidden=true;window.scrollTo({top:0,behavior:'smooth'})}
+$('#codeForm').addEventListener('submit',e=>{e.preventDefault();const v=$('#codeInput').value.trim().toUpperCase();if(v===DEMO_CODE||v==='GRANNAT'){revealApp('code');setTimeout(()=>$('#enterGallery').focus({preventScroll:true}),60)}else{$('#codeErr').textContent='Код не подошёл. Проверьте конверт или нажмите «Вставить код».';$('#codeErr').hidden=false}});
+document.addEventListener('submit',e=>{const f=e.target.closest('.pay-confirm');if(!f)return;e.preventDefault();const v=f.querySelector('input').value.trim().toUpperCase(),o=S.orders.find(x=>x.id===f.dataset.order&&x.status==='wait'),err=f.nextElementSibling;if(o&&v===o.code.toUpperCase()){o.status='paid';save();drawAll();confetti();toast('Готово: заказ перенесён в старые')}else if(err){err.textContent='Код не подошёл. Он написан на карточке заказа выше.';err.hidden=false}});
+document.addEventListener('input',e=>{if(e.target.id==='sign'){S.signature=e.target.value.slice(0,300);save()}});
+addEventListener('offline',()=>toast('Нет сети — демо работает без подключения'));
+addEventListener('online',()=>toast('Сеть восстановлена'));
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-heart]')){e.preventDefault();toggleHeart(+e.target.dataset.heart);return}
+if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-frame]')){e.preventDefault();openLb(+e.target.dataset.frame);return}
+const overl=[lb,$('#cart').classList.contains('open')?$('#cart'):null,$('#lead').hidden?null:$('#lead')].filter(Boolean);
+if(e.key==='Escape'){if(!lb.hidden)closeLb();else if(!$('#lead').hidden)closeLead();else if($('#cart').classList.contains('open'))openCart(false);return}
+if(!overl.length)return;
+if(e.key==='ArrowLeft'&&!lb.hidden)step(-1);if(e.key==='ArrowRight'&&!lb.hidden)step(1);
+if(e.key==='Tab'){const root=!lb.hidden?lb:(!$('#lead').hidden?$('#lead'):$('#cart')),f=[...root.querySelectorAll('button,input,textarea,a[href],[tabindex="0"]')].filter(x=>x.offsetParent!==null);if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+function openLead(){const sel=$('#leadTariff');if(!sel.options.length)sel.innerHTML=SETS.map(x=>`<option value="${x.id}">${x.name} — ${rub(x.price)}</option>`).join('');const first=Object.entries(S.cart.sets).find(([,n])=>n>0);if(first)sel.value=first[0];$('#leadForm').hidden=false;$('#leadDone').hidden=true;$('#lead').hidden=false;$('#scrim').hidden=false;$('#lead').setAttribute('aria-hidden','false');setTimeout(()=>$('#leadForm [name="name"]').focus(),40)}
+function closeLead(){const l=$('#lead');if(l.hidden)return;l.hidden=true;$('#scrim').hidden=true;l.setAttribute('aria-hidden','true')}
+$('#leadClose').addEventListener('click',closeLead);
+$('#leadAgain').addEventListener('click',()=>openLead());
+$('#leadForm').addEventListener('submit',e=>{e.preventDefault();const f=e.target,d=new FormData(f),name=String(d.get('name')||'').trim(),phone=String(d.get('phone')||'').trim();if(!name||!phone){toast('Заполните имя и телефон');return}
+const dest=d.get('dest'),names={vk:'ВКонтакте',wa:'WhatsApp',mail:'Почта студии'};
+const lead={id:'З-'+String(Date.now()).slice(-5),name,phone,tariff:d.get('tariff'),code:String(d.get('code')||'').trim(),note:String(d.get('note')||'').trim(),dest,at:new Date().toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})};
+S.leads.unshift(lead);save();
+$('#msgDest').textContent=names[dest]||names.vk;
+$('#leadCard').innerHTML=`<h3>Новая заявка ${lead.id}</h3><div class="row"><span>Имя</span><b>${esc(name)}</b></div><div class="row"><span>Телефон</span><b>${esc(phone)}</b></div><div class="row"><span>Тариф</span><b>${setById(lead.tariff)?setById(lead.tariff).name:esc(lead.tariff)}</b></div><div class="row"><span>Код</span><b>${esc(lead.code)||'—'}</b></div><div class="row"><span>Комментарий</span><b>${esc(lead.note)||'—'}</b></div><div class="stamp">Пришло в ${names[dest]||names.vk} · ${esc(lead.at)}</div>`;
+$('#leadForm').hidden=true;$('#leadDone').hidden=false;toast('Заявка принята');announce('Заявка принята');confetti()});
+/* observers */
+let io=null;
+function observe(){if(io)io.disconnect();if(!('IntersectionObserver'in window)){document.querySelectorAll('#view-kp .reveal').forEach(e=>e.classList.add('in'));return}
+io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});document.querySelectorAll('#view-kp .reveal').forEach(e=>io.observe(e))}
+function scrollspy(){const y=scrollY+160;const kn=document.querySelectorAll('.kp-head nav a');kn.forEach(a=>a.removeAttribute('aria-current'));let kid='top';for(const id of ['found','offer','price','contact']){const e=document.getElementById(id);if(e&&e.offsetTop<=y)kid=id}const ka=document.querySelector(`.kp-head nav a[href="#${kid}"]`);if(ka)ka.setAttribute('aria-current','true');
+if(typeof screen!=='undefined'&&screen==='demo'&&!$('#appNav').hidden){let did='demo-gallery';for(const id of ['demo-gallery','demo-tariffs','demo-contacts','demo-faq']){const e=document.getElementById(id);if(e&&e.offsetTop<=y)did=id}document.querySelectorAll('#appNav a').forEach(a=>{if(a.getAttribute('href')==='#'+did)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')})}}
+/* router */
+const saves={kp:0,demo:0,gift:0};let screen='kp';
+function route(){const raw=location.hash.slice(1)||'';
+let next,anchor=null;
+if(raw===''||raw==='/')next='kp';
+else if(raw==='/demo')next='demo';
+else if(raw.indexOf('/gift/')===0)next='gift';
+else{anchor=raw;next=screen}
+$('#kpHead').hidden=next!=='kp';$('#appHead').hidden=next!=='demo';
+if(next==='gift')renderGift(raw.split('/')[2]||'');
+if(next!==screen){saves[screen]=scrollY;screen=next;document.body.dataset.screen=screen;
+for(const [k,id] of [['kp','#view-kp'],['demo','#view-demo'],['gift','#view-gift']])$(id).hidden=k!==screen;
+$('#kpHead').hidden=screen!=='kp';$('#appHead').hidden=screen!=='demo';
+$('#garland').style.setProperty('--x','0');
+const y=saves[screen]||0;window.scrollTo(0,y);
+const h=$(screen==='kp'?'#view-kp h1':screen==='demo'?'#fairyTitle':'#giftCard h1');if(h)h.focus({preventScroll:true});
+document.title=screen==='kp'?'ГРАННАТ — аудит и рабочий пример':screen==='demo'?'Приложение Grannat — демо':'Открытка и альбом · ГРАННАТ';
+announce(screen==='kp'?'Предложение':screen==='demo'?'Демо-приложение':'Открытка');
+observe();
+}else if(anchor){const el=document.getElementById(anchor);if(el){const hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||72;let abs=0,n=el;while(n){abs+=n.offsetTop||0;n=n.offsetParent}window.scrollTo({top:abs-hh-18,behavior:'instant'})}}
+else if(raw==='/'||raw==='')window.scrollTo(0,saves.kp||0);
+scrollspy()}
+addEventListener('hashchange',route);addEventListener('scroll',scrollspy,{passive:true});
+/* инициализация */
+(function(){const g=$('#bulbs'),cols=['#C9A227','#7B1E2B','#A62B3C','#1E3A32'];let s='';for(let i=0;i<26;i++)s+=`<circle cx="${i*46+10}" cy="${8+Math.sin(i)*5}" r="3.4" fill="${cols[i%4]}"/>`;g.innerHTML=s;
+const env=$('#envelope');try{sessionStorage.getItem('grannat_env')}catch(x){}
+let seen=false;try{seen=sessionStorage.getItem('grannat_env')==='1'}catch(x){}
+if(seen)env.classList.add('done');else{env.querySelectorAll('.cards i').forEach((n,k)=>{n.style.backgroundImage=`url('${src(k)}')`});try{sessionStorage.setItem('grannat_env','1')}catch(x){}}
+document.querySelectorAll('[data-filter],[data-sort]').forEach(b=>{const on=b.dataset.filter===S.filter||b.dataset.sort===S.sort;b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))});
+if(S.filter==='new')S.filter='all';seedOrders();applyToggles();if(S.unlocked||S.guest)revealApp(S.unlocked?'code':'guest',true);
+fetch('proof.mp4',{method:'HEAD'}).then(r=>{if(r.ok){const p=$('#proof');if(p)p.hidden=false}}).catch(()=>{});
+observe();route();
+try{if(sessionStorage.getItem('grannat_cookie')!=='1')$('#cookie').hidden=false}catch(x){$('#cookie').hidden=false}
+})();
+</script>
+<script>
+/* снег — один инстанс на документ */
+(function(){
+  var mq=matchMedia('(prefers-reduced-motion: reduce)');
+  var low=(navigator.deviceMemory&&navigator.deviceMemory<=2)||(navigator.connection&&navigator.connection.saveData);
+  if(mq.matches||low) return;
+  var c=document.getElementById('snow'),x=c.getContext('2d'),f=[],run=true,dpr=Math.min(devicePixelRatio||1,2);
+  function size(){c.width=innerWidth*dpr;c.height=innerHeight*dpr;x.setTransform(dpr,0,0,dpr,0,0);}
+  size();addEventListener('resize',size,{passive:true});
+  for(var i=0;i<18;i++)f.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    r:1+Math.random()*2.2,s:.18+Math.random()*.35,d:Math.random()*6.28,o:.25+Math.random()*.35});
+  document.addEventListener('visibilitychange',function(){run=!document.hidden&&(!window.snowAllowed||window.snowAllowed());if(run)loop();});
+  window.snowSwitch=function(v){if(run===v)return;run=v;x.clearRect(0,0,innerWidth,innerHeight);if(v)loop();};
+  function loop(){if(!run)return;x.clearRect(0,0,innerWidth,innerHeight);
+    for(var i=0;i<f.length;i++){var p=f[i];p.y+=p.s;p.d+=.008;p.x+=Math.sin(p.d)*.35;
+      if(p.y>innerHeight+6){p.y=-6;p.x=Math.random()*innerWidth;}
+      x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);x.fillStyle='rgba(255,255,255,'+p.o+')';x.fill();}
+    requestAnimationFrame(loop);}
+  loop();
+})();
+</script>
+</body>
+</html>
