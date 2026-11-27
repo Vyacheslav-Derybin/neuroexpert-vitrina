@@ -4,9 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#4A0F1A">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ГРАННАТ">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="robots" content="noindex,nofollow">
@@ -230,14 +233,23 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
 .fairy::after{content:"";position:absolute;inset:auto 0 0;height:120px;background:linear-gradient(transparent,rgba(255,255,255,.14));pointer-events:none}
 .fairy-decor{position:absolute;inset:0;pointer-events:none}
 .moon{position:absolute;top:28px;right:34px;width:52px;height:52px;border-radius:50%;background:#F2D98A;box-shadow:0 0 36px 10px rgba(242,217,138,.35)}
-.star{position:absolute;color:#F7E9C9;opacity:.8;font-size:16px}.s1{top:70px;left:9%}.s2{top:130px;right:12%}.s3{top:200px;left:16%;font-size:12px}.s4{top:46px;left:38%;font-size:11px}
-.tree{position:absolute;left:5%;bottom:-16px;width:130px;height:190px;opacity:.9}
-.tree i{position:absolute;left:50%;transform:translateX(-50%);clip-path:polygon(50% 0,100% 100%,0 100%);background:linear-gradient(180deg,#2f6b4f,#173a2b)}
-.tree i:nth-child(1){top:0;width:62px;height:78px}.tree i:nth-child(2){top:42px;width:94px;height:92px}.tree i:nth-child(3){top:82px;width:124px;height:92px}
-.tree span{position:absolute;left:50%;bottom:0;width:16px;height:26px;transform:translateX(-50%);background:#6b4326}
-.present{position:absolute;bottom:0;width:34px;height:30px;border-radius:3px;background:var(--granat-500);box-shadow:inset 0 8px 0 rgba(201,162,39,.55)}
-.present::after{content:"";position:absolute;left:50%;top:0;width:7px;height:100%;transform:translateX(-50%);background:rgba(247,233,201,.55)}
-.p1{right:9%}.p2{right:15%;width:26px;height:24px;background:#C9A227}.p3{left:20%;width:22px;height:20px;background:#7B1E2B}
+.star{position:absolute;color:#F7E9C9;opacity:.8;font-size:16px;animation:twinkle 2.6s ease-in-out infinite alternate}.star.s2{animation-delay:.6s}.star.s3{animation-delay:1.1s}.star.s4{animation-delay:1.6s}.s1{top:70px;left:9%}.s2{top:130px;right:12%}.s3{top:200px;left:16%;font-size:12px}.s4{top:46px;left:38%;font-size:11px}
+.tree{position:absolute;left:4%;bottom:-14px;width:150px;height:212px;opacity:.96;transform-origin:bottom center;animation:sway 5.5s ease-in-out infinite alternate;filter:drop-shadow(0 12px 18px rgba(0,0,0,.45))}
+.tree .lights circle{fill:#F2D98A;animation:blink 1.8s ease-in-out infinite alternate}
+.tree .lights circle:nth-child(2n){fill:#d60b52;animation-delay:.25s}
+.tree .lights circle:nth-child(3n){animation-delay:.55s}
+.tree .lights circle:nth-child(5n){animation-delay:.85s}
+.tree .topstar{transform-origin:130px 22px;animation:twinkle 3s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-1.6deg)}to{transform:rotate(1.6deg)}}
+.moon{animation:moonFloat 8s ease-in-out infinite alternate}
+@keyframes moonFloat{from{transform:translateY(0)}to{transform:translateY(-9px)}}
+.present{position:absolute;bottom:0;width:36px;height:32px;border-radius:4px;background:var(--granat-500);box-shadow:inset 0 9px 0 rgba(201,162,39,.5),0 8px 16px rgba(0,0,0,.3);animation:giftBob 3.8s ease-in-out infinite alternate}
+.present::before{content:"";position:absolute;left:0;right:0;top:9px;height:6px;background:rgba(247,233,201,.6)}
+.present::after{content:"";position:absolute;left:50%;top:-8px;width:16px;height:10px;transform:translateX(-50%);border:4px solid rgba(247,233,201,.75);border-radius:50% 50% 0 0}
+.p2{animation-delay:.8s}.p3{animation-delay:1.4s}
+@keyframes giftBob{from{transform:translateY(0)}to{transform:translateY(-7px)}}
+@keyframes blink{from{opacity:.35}to{opacity:1}}
+.p1{right:9%}.p2{right:16%;width:28px;height:25px;background:#C9A227}.p3{left:20%;width:24px;height:22px;background:#7B1E2B}
 .fairy-card{position:relative;z-index:2;width:min(100%,440px);margin:0 auto;padding:30px 26px 26px;border-radius:20px;background:rgba(251,246,239,.97);border:2px solid rgba(201,162,39,.65);box-shadow:0 26px 60px -20px rgba(0,0,0,.6),inset 0 0 0 6px rgba(255,255,255,.55);color:var(--ink)}
 .fairy-card::before,.fairy-card::after{content:"❄";position:absolute;top:12px;color:var(--pine);opacity:.45;font-size:18px}
 .fairy-card::before{left:14px}.fairy-card::after{right:14px}
@@ -510,7 +522,7 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
 <div class="sign">Вячеслав Дерябин · веб-разработчик<small>+7 904 047-63-83 · vyacheslav-derybin.github.io</small></div>
 <div class="final-cta">
 <a class="btn" href="#/demo" data-go="demo">Демо приложения →</a>
-<a class="btn ghost" href="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/" target="_blank" rel="noopener">Моё портфолио ↗</a>
+<a class="btn ghost" href="https://vyacheslav-derybin.github.io/neuroexpert-vitrina/" target="_blank" rel="noopener noreferrer">Моё портфолио ↗</a>
 </div>
 <p class="phone">Или просто позвоните: <a href="tel:+79040476383">+7 904 047-63-83</a></p>
 <p class="disclaim">Приложенный пример — демонстрационный концепт интерфейса, не официальный сайт детской фотостудии ГРАННАТ. Кадры в примере заменены авторскими иллюстрациями, фотографии клиентов не используются. Оплата имитируется.</p>
@@ -533,7 +545,24 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
 <section class="fairy" id="fairy" aria-labelledby="fairyTitle">
 <div class="fairy-decor" aria-hidden="true">
 <div class="moon"></div><div class="star s1">✦</div><div class="star s2">✧</div><div class="star s3">✦</div><div class="star s4">✧</div>
-<div class="tree"><i></i><i></i><i></i><span></span></div>
+<svg class="tree" viewBox="0 0 260 330" aria-hidden="true" focusable="false">
+<defs>
+<linearGradient id="tgA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3c7d5b"/><stop offset="1" stop-color="#103127"/></linearGradient>
+<linearGradient id="tgB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6b4f"/><stop offset="1" stop-color="#0b241c"/></linearGradient>
+</defs>
+<ellipse cx="130" cy="316" rx="84" ry="9" fill="#000" opacity=".3"/>
+<rect x="119" y="268" width="22" height="47" rx="4" fill="#5a3a22"/>
+<path d="M130 16 L168 92 L92 92 Z" fill="url(#tgA)"/>
+<path d="M130 60 L188 150 L72 150 Z" fill="url(#tgB)"/>
+<path d="M130 108 L208 210 L52 210 Z" fill="url(#tgA)"/>
+<path d="M130 156 L230 269 L30 269 Z" fill="url(#tgB)"/>
+<path d="M92 92 Q130 104 168 92 M72 150 Q130 165 188 150 M52 210 Q130 228 208 210 M30 269 Q130 290 230 269" stroke="#eaf3ee" stroke-width="5" fill="none" opacity=".78" stroke-linecap="round"/>
+<path d="M72 150 Q130 176 188 150 M52 210 Q130 240 208 210 M31 269 Q130 301 229 269" stroke="#C9A227" stroke-width="2" fill="none" opacity=".8"/>
+<g class="lights"><circle cx="84" cy="162" r="4"/><circle cx="108" cy="171" r="4"/><circle cx="130" cy="175" r="4"/><circle cx="152" cy="171" r="4"/><circle cx="176" cy="162" r="4"/><circle cx="66" cy="226" r="4"/><circle cx="96" cy="237" r="4"/><circle cx="130" cy="242" r="4"/><circle cx="164" cy="237" r="4"/><circle cx="194" cy="226" r="4"/><circle cx="44" cy="283" r="4"/><circle cx="84" cy="294" r="4"/><circle cx="130" cy="300" r="4"/><circle cx="176" cy="294" r="4"/><circle cx="216" cy="283" r="4"/></g>
+<g fill="#d60b52"><circle cx="112" cy="122" r="6"/><circle cx="156" cy="130" r="6"/><circle cx="90" cy="196" r="6"/><circle cx="170" cy="200" r="6"/><circle cx="120" cy="260" r="6"/></g>
+<g fill="#F2D98A" opacity=".9"><circle cx="138" cy="112" r="5"/><circle cx="146" cy="250" r="5"/><circle cx="200" cy="270" r="5"/></g>
+<path class="topstar" d="M130 2 L137 16 L152 18 L141 28 L144 43 L130 35 L116 43 L119 28 L108 18 L123 16 Z" fill="#F2D98A"/>
+</svg>
 <div class="present p1"></div><div class="present p2"></div><div class="present p3"></div>
 </div>
 <div class="fairy-card" id="codeCard">
@@ -784,7 +813,7 @@ if(location.hash.indexOf('#/demo')===0)location.hash='#demo-gallery';else $('#de
 function renderGift(id){const o=S.orders.find(x=>x.id===id);const box=$('#giftBody');if(!o){box.innerHTML='<div class="emptybox">Такой открытки нет. <button class="btn ghost sm" data-go="kp">Вернуться к предложению</button></div>';return}
 if(o.status==='wait'){box.innerHTML='<div class="emptybox">Этот заказ ещё ждёт подтверждения наличными. <button class="btn ghost sm" data-go="kp">К предложению</button></div>';return}
 const frames=(o.frames||[]);box.innerHTML=`<p class="sub">Семья собрала альбом и отправляет его вам одной ссылкой.</p>
-<label for="sign">Подпись семьи</label><textarea id="sign" placeholder="С наступающим! Спасибо за год ❤">${S.signature||''}</textarea>
+<label for="sign">Подпись семьи</label><textarea id="sign" placeholder="С наступающим! Спасибо за год ❤">${esc(S.signature||'')}</textarea>
 <button class="btn" id="copyGift">Скопировать ссылку на открытку</button><p class="paid-line">Оплачено семьёй. Вам ничего платить не нужно.</p>
 <div class="grid" style="margin-top:20px">${frames.length?frames.map(n=>{const i=F.findIndex(f=>f.n===n);return i<0?'':`<div class="ph"><img src="${src(i)}" alt="Кадр ${n}"><span class="n">${n}</span></div>`}).join(''):'<div class="emptybox">В альбоме пока нет кадров.</div>'}</div>`}
 /* общий клик */
