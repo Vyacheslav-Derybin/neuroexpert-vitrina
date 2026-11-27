@@ -754,7 +754,7 @@ const frames=(o.frames||[]);box.innerHTML=`<p class="sub">Семья собра�
 <div class="grid" style="margin-top:20px">${frames.length?frames.map(n=>{const i=F.findIndex(f=>f.n===n);return i<0?'':`<div class="ph"><img src="${src(i)}" alt="Кадр ${n}"><span class="n">${n}</span></div>`}).join(''):'<div class="emptybox">В альбоме пока нет кадров.</div>'}</div>`}
 /* общий клик */
 document.addEventListener('click',e=>{const t=e.target;
-const go=t.closest('[data-go]');if(go){location.hash=go.dataset.go==='demo'?'#/demo':'#/';return}
+const go=t.closest('[data-go]');if(go){if(go.dataset.go==='demo'){try{sessionStorage.setItem('grannat_direct','1')}catch(x){}}location.hash=go.dataset.go==='demo'?'#/demo':'#/';return}
 const cp=t.closest('[data-copy]');if(cp){navigator.clipboard.writeText(cp.dataset.copy).then(()=>toast('Текст скопирован')).catch(()=>toast('Скопируйте текст вручную'));return}
 const hr=t.closest('[data-heart]');if(hr){toggleHeart(+hr.dataset.heart);return}
 const fr=t.closest('[data-frame]');if(fr){openLb(+fr.dataset.frame);return}
@@ -840,6 +840,7 @@ const h=$(screen==='kp'?'#view-kp h1':screen==='demo'?'#fairyTitle':'#giftCard h
 document.title=screen==='kp'?'ГРАННАТ — аудит сайта и демо приложения':screen==='demo'?'ГРАННАТ — демо приложения':'Открытка и альбом · ГРАННАТ';
 announce(screen==='kp'?'Предложение':screen==='demo'?'Демо-приложение':'Открытка');
 observe();
+if(next==='demo'){let direct=false;try{direct=sessionStorage.getItem('grannat_direct')==='1';sessionStorage.removeItem('grannat_direct')}catch(x){}if(direct){revealApp('guest',true);setTimeout(()=>{const g=$('#demo-gallery');if(g){const hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||72;window.scrollTo({top:g.getBoundingClientRect().top+scrollY-hh-18,behavior:'smooth'})}announce('Гостевой вход в приложение')},160)}}
 }else if(anchor){const el=document.getElementById(anchor);if(el){const hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||72;let abs=0,n=el;while(n){abs+=n.offsetTop||0;n=n.offsetParent}window.scrollTo({top:abs-hh-18,behavior:'instant'})}}
 else if(raw==='/'||raw==='')window.scrollTo(0,saves.kp||0);
 scrollspy()}
