@@ -860,7 +860,7 @@ function phoneUA(){return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)|
 function closeInstall(){const i=$('#install');if(i.hidden)return;i.hidden=true;i.setAttribute('aria-hidden','true');if(!$('#cart').classList.contains('open')&&$('#lead').hidden)$('#scrim').hidden=true}
 function showInstall(){if(appInstalled()||!phoneUA())return;const ios=/iP(hone|ad|od)/i.test(navigator.userAgent);$('#installSteps').textContent=ios?'Нажмите «Поделиться» ↓ → «На экран «Домой»» → «Добавить».':(deferredPrompt?'Нажмите «Установить» — ярлык появится на главном экране.':'Нажмите меню ⋮ → «Установить приложение» или «Добавить на главный экран».');$('#installBtn').hidden=!deferredPrompt;$('#scrim').hidden=false;$('#install').hidden=false;$('#install').setAttribute('aria-hidden','false')}
 function showInstallOnce(){try{if(sessionStorage.getItem('grannat_install_shown')==='1')return}catch(x){}if(typeof screen!=='undefined'&&screen!=='demo')return;if(appInstalled()||!phoneUA())return;try{sessionStorage.setItem('grannat_install_shown','1')}catch(x){}showInstall()}
-if('serviceWorker'in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+addEventListener('load',()=>setTimeout(()=>{if('serviceWorker'in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{})},1800));
 setTimeout(showInstallOnce,7000);
 /* observers */
 let io=null;
