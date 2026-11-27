@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#4A0F1A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ГРАННАТ">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="robots" content="noindex,nofollow">
 <title>ГРАННАТ — аудит сайта и демо приложения</title>
 <meta name="description" content="Разбор сайта детской фотостудии: шесть найденных проблем и рабочее демо приложения — вход по коду, галерея, тарифы, заявка.">
@@ -284,6 +289,19 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
 .order-main{width:100%;margin-top:16px;min-height:52px}
 .guest-note{background:var(--cream-2);border-radius:12px;padding:18px;margin-top:24px;text-align:center;color:var(--muted)}
 .guest-note b{color:var(--granat-900)}
+.gift-title{margin:22px 0 4px;font-size:20px}
+.gift-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0 24px}
+.gift-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.gift-card h3{margin:12px 0 6px;font-size:18px}
+.gift-card p{font-size:14px;color:var(--muted);margin:0 0 12px}
+.gift-visual{height:132px;border-radius:10px;overflow:hidden;position:relative;display:flex;gap:4px;align-items:center;justify-content:center;background:var(--cream-2)}
+.gift-visual img{object-fit:cover}
+.cal-visual img{height:100%;width:70%;box-shadow:0 8px 18px rgba(0,0,0,.28);border-radius:4px}
+.cal-visual span{position:absolute;top:10px;right:12px;background:var(--granat-700);color:#fff;font-weight:800;font-size:13px;padding:4px 8px;border-radius:6px}
+.mag-visual img{width:30%;height:82%;border-radius:50%;border:4px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.gift-check{display:flex;align-items:center;gap:8px;min-height:44px;font-weight:650;font-size:14px}
+.gift-check input{width:22px;height:22px;accent-color:var(--granat-700)}
+
 /* заявка и уведомление */
 #lead{position:fixed;inset:0;z-index:125;display:grid;place-items:center;padding:14px;overflow:auto}
 .lead-box{width:min(100%,480px);max-height:calc(100dvh - 28px);overflow:auto;background:var(--cream);color:var(--ink);border-radius:18px;padding:20px;box-shadow:0 30px 80px rgba(0,0,0,.5);border:2px solid var(--brass)}
@@ -309,6 +327,17 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
 .bubble .stamp{color:#6b7280;font-size:12px;margin-top:8px}
 @media(max-width:480px){.lead-box{padding:16px}.fairy{min-height:0;padding:22px 12px 18px}.fairy-card{padding:16px 14px 14px}.fairy-card h1{font-size:24px;margin-bottom:4px}.slogan{margin-bottom:8px}.fairy-sub{font-size:12px;margin-bottom:10px}.fairy-card label{margin-bottom:4px}.guest-btn{min-height:40px;margin-top:6px;font-size:13px}.code-help{margin-top:6px;font-size:12px}}
 @media(max-width:360px){.dest label{min-height:36px;font-size:13px}}
+
+/* установка ярлыка */
+#install{position:fixed;inset:0;z-index:126;display:grid;place-items:center;padding:16px}
+.install-box{width:min(100%,360px);background:var(--granat-900);color:#F7E9C9;border:2px solid var(--brass);border-radius:18px;padding:24px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.install-star{display:block;color:var(--brass);font-size:26px;margin-bottom:6px}
+.install-box h2{color:#F7E9C9;font-size:22px;margin-bottom:10px}
+.install-box p{font-size:14px;line-height:1.5;margin-bottom:18px}
+.install-acts{display:flex;flex-direction:column;gap:8px}
+.install-box .btn{width:100%}
+.install-box .btn.ghost{background:transparent;color:#F7E9C9;border-color:rgba(247,233,201,.4)}
+.install-box .btn.ghost:hover{background:rgba(255,255,255,.1)}
 
 /* overlays */
 #scrim{position:fixed;inset:0;z-index:110;background:rgba(36,28,26,.5)}
@@ -554,7 +583,7 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
 <div class="guest-note" id="guestOrders" hidden><b>Вы вошли без кода.</b> Здесь появятся ваши заказы, когда вы введёте код из конверта. Тарифы можно заказать и сейчас.<br><button class="btn ghost sm" id="backToCode">Войти по коду</button></div>
 </section>
 
-<section id="demo-tariffs"><h2 tabindex="-1">Тарифы</h2><p class="sub">Тарифы и подарки здесь — пример концепта: на сайте студии их пока нет. Цена указана за весь тариф.</p><div class="sets" id="sets"></div><button class="btn order-main" id="orderBtn">Заказать тариф →</button><p class="sub tiny">Код не нужен — можно сразу оставить заявку.</p></section>
+<section id="demo-tariffs"><h2 tabindex="-1">Тарифы</h2><p class="sub">Тарифы и подарки здесь — пример концепта: на сайте студии их пока нет. Цена указана за весь тариф.</p><h3 class="gift-title">Подарки, которые можно добавить</h3><div class="gift-grid" id="giftGrid"></div><div class="sets" id="sets"></div><button class="btn order-main" id="orderBtn">Заказать тариф →</button><p class="sub tiny">Код не нужен — можно сразу оставить заявку.</p></section>
 
 <section id="demo-contacts">
 <h2 tabindex="-1">Для связи</h2>
@@ -579,7 +608,7 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
 </section>
 </div>
 
-<div class="app-foot">Концепт интерфейса для детской фотостудии ГРАННАТ. Не официальный сайт. Оплата имитируется, кадры — демонстрационные.<br><button class="btn ghost sm" data-go="kp">Вернуться к предложению</button></div>
+<div class="app-foot">Концепт интерфейса для детской фотостудии ГРАННАТ. Не официальный сайт. Оплата имитируется, кадры — демонстрационные.<br><button class="btn ghost sm" id="installLink">Ярлык на телефон</button> <button class="btn ghost sm" data-go="kp">Вернуться к предложению</button></div>
 </div>
 </main>
 
@@ -628,6 +657,9 @@ body[data-screen="kp"] #appHead,body[data-screen="demo"] #kpHead,body[data-scree
 <div class="lbb"><button class="btn ghost sm" id="lbDownload">Скачать кадр</button><button class="btn sm" id="lbToSets">Выбрать набор</button></div></div>
 <button id="sticky" hidden><span id="stickyText"></span><span>Корзина →</span></button>
 <div id="cookie" hidden><span>Используем cookie для работы демо.</span><button class="btn sm" id="cookieOk">Понятно</button></div>
+<div id="install" role="dialog" aria-modal="true" aria-labelledby="installTitle" hidden>
+<div class="install-box"><span class="install-star" aria-hidden="true">✦</span><h2 id="installTitle">Ярлык на телефон</h2><p id="installSteps">Откройте меню браузера и добавьте страницу на главный экран.</p><div class="install-acts"><button class="btn" id="installBtn" hidden>Установить приложение</button><button class="btn ghost" id="installClose">Понятно</button></div></div>
+</div>
 <div id="toast" role="status" aria-live="polite" hidden></div>
 
 <script>
@@ -696,7 +728,10 @@ return `<div class="order"><div class="top"><h3>Заказ ${o.id}</h3><span cla
 function drawOrders(){const fresh=S.orders.filter(o=>o.status==='wait'),old=S.orders.filter(o=>o.status!=='wait');
 $('#ordersNew').innerHTML=fresh.length?fresh.map(orderCard).join(''):'<div class="emptybox">Новых заказов нет.</div>';
 $('#ordersOld').innerHTML=old.length?old.map(orderCard).join(''):'<div class="emptybox">Оплаченных заказов пока нет.</div>'}
-function drawAll(){drawGrid();drawSets();drawCart();drawOrders()}
+function drawGifts(){const box=$('#giftGrid');if(!box)return;
+box.innerHTML=`<div class="gift-card"><div class="gift-visual cal-visual"><img src="${src(3)}" alt="Пример календаря-домика с детским кадром"><span>2027</span></div><h3>Календарь-домик</h3><p>13 кадров, обложка и разворот. Успеем напечатать до 15 декабря.</p><button class="btn ghost sm" data-step="cal" data-d="1">Добавить · ${rub(4500)}</button></div>
+<div class="gift-card"><div class="gift-visual mag-visual"><img src="${src(5)}" alt="Магнит с детским кадром"><img src="${src(6)}" alt="Магнит с детским кадром"><img src="${src(7)}" alt="Магнит с детским кадром"></div><h3>Магниты, набор 3 шт.</h3><p>Те же кадры, но на холодильнике. Бабушка будет довольна.</p><label class="gift-check"><input type="checkbox" data-addon="mag" ${S.cart.addons.includes('mag')?'checked':''}> Добавить · ${rub(700)}</label></div>`}
+function drawAll(){drawGrid();drawSets();drawGifts();drawCart();drawOrders()}
 function skeleton(){const g=$('#grid');g.querySelectorAll('.ph').forEach(e=>e.classList.add('sk'));setTimeout(()=>g.querySelectorAll('.ph').forEach(e=>e.classList.remove('sk')),420)}
 function applyToggles(){window.snowAllowed=()=>!!S.snow;const sb=$('#snowBtn'),gb=$('#garlandBtn');if(sb)sb.setAttribute('aria-pressed',String(!!S.snow));if(gb)gb.setAttribute('aria-pressed',String(!!S.garland));$('#snow').hidden=!S.snow;$('#garland').hidden=!S.garland;if(window.snowSwitch)window.snowSwitch(!!S.snow)}
 function seedOrders(){if(S.orders.length)return;S.orders=[{id:'G-2401',code:'GRN-7K2M-9Q',status:'paid',sets:['cal','mag'],frames:[2596,2597,2598,2599],total:5200},{id:'G-2402',code:'GRN-3X5P-2B',status:'wait',sets:['fr'],frames:[2600,2601],total:1900}];save()}
@@ -771,7 +806,7 @@ const dl=t.closest('[data-dl]');if(dl){const i=F.findIndex(f=>f.n===+dl.dataset.
 const da=t.closest('[data-dlall]');if(da){const o=S.orders.find(x=>x.id===da.dataset.dlall);if(o)downloadAll(o);return}
 const de=t.closest('[data-del]');if(de){const id=de.dataset.del,idx=S.orders.findIndex(x=>x.id===id),o=S.orders[idx];if(idx>=0){S.orders.splice(idx,1);save();drawOrders();toast('Заказ удалён',()=>{S.orders.splice(idx,0,o);save();drawOrders()})}return}
 if(t.closest('#cartBtn')||t.closest('#sticky')){openCart(true);return}
-if(t.closest('#cartClose')||t.closest('#scrim')){openCart(false);closeLead();return}
+if(t.closest('#cartClose')||t.closest('#scrim')){openCart(false);closeLead();closeInstall();return}
 if(t.closest('#payBtn')){pay();return}
 if(t.closest('#lbClose')){closeLb();return}
 if(t.closest('#lbHeart')){toggleHeart(F[cur].n);return}
@@ -788,9 +823,12 @@ if(t.closest('#enterGallery')){const el=$('#demo-gallery');if(el){const hh=parse
 if(t.closest('#enterGuest')){revealApp('guest');setTimeout(()=>$('#enterGallery').focus({preventScroll:true}),60);return}
 if(t.closest('#backToCode')){backToCode();return}
 if(t.closest('#orderBtn')){openLead();return}
+if(t.closest('#installLink')){showInstall();return}
+if(t.closest('#installClose')){closeInstall();return}
+if(t.closest('#installBtn')){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt=null}closeInstall();return}
 const sc=t.closest('[data-social]');if(sc){if(sc.dataset.social==='phone'){navigator.clipboard.writeText('+79200011150').then(()=>toast('Телефон скопирован: +7 920 001-11-50')).catch(()=>toast('Телефон: +7 920 001-11-50'))}else toast('Это демо: страница в соцсети не подключена');return}
 });
-function revealApp(mode,quiet){S.unlocked=mode==='code';S.guest=mode==='guest';save();$('#codeForm').hidden=true;$('#codeErr').hidden=true;$('#codeHelp').hidden=true;$('#enterGuest').hidden=true;$('#unlockedMsg').hidden=false;$('#appNav').hidden=false;$('#demoBody').hidden=false;$('#unlockedText').textContent=mode==='guest'?'✓ Вы вошли как гость. Можно смотреть кадры и заказывать тарифы.':'✓ Код принят. Галерея открыта.';$('#ordersHub').hidden=mode==='guest';$('#guestOrders').hidden=mode!=='guest';drawAll();if(!quiet){skeleton();announce(mode==='guest'?'Гостевой вход':'Доступ открыт');confetti()}}
+function revealApp(mode,quiet){S.unlocked=mode==='code';S.guest=mode==='guest';save();$('#codeForm').hidden=true;$('#codeErr').hidden=true;$('#codeHelp').hidden=true;$('#enterGuest').hidden=true;$('#unlockedMsg').hidden=false;$('#appNav').hidden=false;$('#demoBody').hidden=false;$('#unlockedText').textContent=mode==='guest'?'✓ Вы вошли как гость. Можно смотреть кадры и заказывать тарифы.':'✓ Код принят. Галерея открыта.';$('#ordersHub').hidden=mode==='guest';$('#guestOrders').hidden=mode!=='guest';drawAll();if(!quiet){skeleton();announce(mode==='guest'?'Гостевой вход':'Доступ открыт');confetti()}setTimeout(showInstallOnce,2200)}
 function backToCode(){S.unlocked=false;S.guest=false;save();$('#codeForm').hidden=false;$('#codeHelp').hidden=false;$('#enterGuest').hidden=false;$('#unlockedMsg').hidden=true;$('#appNav').hidden=true;$('#demoBody').hidden=true;$('#codeInput').value='';$('#codeErr').hidden=true;window.scrollTo({top:0,behavior:'smooth'})}
 $('#codeForm').addEventListener('submit',e=>{e.preventDefault();const v=$('#codeInput').value.trim().toUpperCase();if(v===DEMO_CODE||v==='GRANNAT'){revealApp('code');setTimeout(()=>$('#enterGallery').focus({preventScroll:true}),60)}else{$('#codeErr').textContent='Код не подошёл. Проверьте конверт или нажмите «Вставить код».';$('#codeErr').hidden=false}});
 document.addEventListener('submit',e=>{const f=e.target.closest('.pay-confirm');if(!f)return;e.preventDefault();const v=f.querySelector('input').value.trim().toUpperCase(),o=S.orders.find(x=>x.id===f.dataset.order&&x.status==='wait'),err=f.nextElementSibling;if(o&&v===o.code.toUpperCase()){o.status='paid';save();drawAll();confetti();toast('Готово: заказ перенесён в старые')}else if(err){err.textContent='Код не подошёл. Он написан на карточке заказа выше.';err.hidden=false}});
@@ -799,11 +837,11 @@ addEventListener('offline',()=>toast('Нет сети — демо работа�
 addEventListener('online',()=>toast('Сеть восстановлена'));
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-heart]')){e.preventDefault();toggleHeart(+e.target.dataset.heart);return}
 if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-frame]')){e.preventDefault();openLb(+e.target.dataset.frame);return}
-const overl=[lb,$('#cart').classList.contains('open')?$('#cart'):null,$('#lead').hidden?null:$('#lead')].filter(Boolean);
-if(e.key==='Escape'){if(!lb.hidden)closeLb();else if(!$('#lead').hidden)closeLead();else if($('#cart').classList.contains('open'))openCart(false);return}
+const overl=[lb,$('#cart').classList.contains('open')?$('#cart'):null,$('#lead').hidden?null:$('#lead'),$('#install').hidden?null:$('#install')].filter(Boolean);
+if(e.key==='Escape'){if(!lb.hidden)closeLb();else if(!$('#lead').hidden)closeLead();else if(!$('#install').hidden)closeInstall();else if($('#cart').classList.contains('open'))openCart(false);return}
 if(!overl.length)return;
 if(e.key==='ArrowLeft'&&!lb.hidden)step(-1);if(e.key==='ArrowRight'&&!lb.hidden)step(1);
-if(e.key==='Tab'){const root=!lb.hidden?lb:(!$('#lead').hidden?$('#lead'):$('#cart')),f=[...root.querySelectorAll('button,input,textarea,a[href],[tabindex="0"]')].filter(x=>x.offsetParent!==null);if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+if(e.key==='Tab'){const root=!lb.hidden?lb:(!$('#lead').hidden?$('#lead'):(!$('#install').hidden?$('#install'):$('#cart'))),f=[...root.querySelectorAll('button,input,textarea,a[href],[tabindex="0"]')].filter(x=>x.offsetParent!==null);if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
 function openLead(){const sel=$('#leadTariff');if(!sel.options.length)sel.innerHTML=SETS.map(x=>`<option value="${x.id}">${x.name} — ${rub(x.price)}</option>`).join('');const first=Object.entries(S.cart.sets).find(([,n])=>n>0);if(first)sel.value=first[0];$('#leadForm').hidden=false;$('#leadDone').hidden=true;$('#lead').hidden=false;$('#scrim').hidden=false;$('#lead').setAttribute('aria-hidden','false');setTimeout(()=>$('#leadForm [name="name"]').focus(),40)}
 function closeLead(){const l=$('#lead');if(l.hidden)return;l.hidden=true;$('#scrim').hidden=true;l.setAttribute('aria-hidden','true')}
 $('#leadClose').addEventListener('click',closeLead);
@@ -815,6 +853,15 @@ S.leads.unshift(lead);save();
 $('#msgDest').textContent=names[dest]||names.vk;
 $('#leadCard').innerHTML=`<h3>Новая заявка ${lead.id}</h3><div class="row"><span>Имя</span><b>${esc(name)}</b></div><div class="row"><span>Телефон</span><b>${esc(phone)}</b></div><div class="row"><span>Тариф</span><b>${setById(lead.tariff)?setById(lead.tariff).name:esc(lead.tariff)}</b></div><div class="row"><span>Код</span><b>${esc(lead.code)||'—'}</b></div><div class="row"><span>Комментарий</span><b>${esc(lead.note)||'—'}</b></div><div class="stamp">Пришло в ${names[dest]||names.vk} · ${esc(lead.at)}</div>`;
 $('#leadForm').hidden=true;$('#leadDone').hidden=false;toast('Заявка принята');announce('Заявка принята');confetti()});
+let deferredPrompt=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});
+function appInstalled(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
+function phoneUA(){return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||matchMedia('(pointer:coarse)').matches}
+function closeInstall(){const i=$('#install');if(i.hidden)return;i.hidden=true;i.setAttribute('aria-hidden','true');if(!$('#cart').classList.contains('open')&&$('#lead').hidden)$('#scrim').hidden=true}
+function showInstall(){if(appInstalled()||!phoneUA())return;const ios=/iP(hone|ad|od)/i.test(navigator.userAgent);$('#installSteps').textContent=ios?'Нажмите «Поделиться» ↓ → «На экран «Домой»» → «Добавить».':(deferredPrompt?'Нажмите «Установить» — ярлык появится на главном экране.':'Нажмите меню ⋮ → «Установить приложение» или «Добавить на главный экран».');$('#installBtn').hidden=!deferredPrompt;$('#scrim').hidden=false;$('#install').hidden=false;$('#install').setAttribute('aria-hidden','false')}
+function showInstallOnce(){try{if(sessionStorage.getItem('grannat_install_shown')==='1')return}catch(x){}if(typeof screen!=='undefined'&&screen!=='demo')return;if(appInstalled()||!phoneUA())return;try{sessionStorage.setItem('grannat_install_shown','1')}catch(x){}showInstall()}
+if('serviceWorker'in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+setTimeout(showInstallOnce,7000);
 /* observers */
 let io=null;
 function observe(){if(io)io.disconnect();if(!('IntersectionObserver'in window)){document.querySelectorAll('#view-kp .reveal').forEach(e=>e.classList.add('in'));return}
