@@ -826,7 +826,7 @@ const saves={kp:0,demo:0,gift:0};let screen='kp';
 function route(){const raw=location.hash.slice(1)||'';
 let next,anchor=null;
 if(raw===''||raw==='/')next='kp';
-else if(raw==='/demo')next='demo';
+else if(raw.indexOf('/demo')===0)next='demo';
 else if(raw.indexOf('/gift/')===0)next='gift';
 else{anchor=raw;next=screen}
 $('#kpHead').hidden=next!=='kp';$('#appHead').hidden=next!=='demo';
@@ -843,6 +843,7 @@ observe();
 if(next==='demo'){let direct=false;try{direct=sessionStorage.getItem('grannat_direct')==='1';sessionStorage.removeItem('grannat_direct')}catch(x){}if(direct){revealApp('guest',true);setTimeout(()=>{const g=$('#demo-gallery');if(g){const hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||72;window.scrollTo({top:g.getBoundingClientRect().top+scrollY-hh-18,behavior:'smooth'})}announce('Гостевой вход в приложение')},160)}}
 }else if(anchor){const el=document.getElementById(anchor);if(el){const hh=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||72;let abs=0,n=el;while(n){abs+=n.offsetTop||0;n=n.offsetParent}window.scrollTo({top:abs-hh-18,behavior:'instant'})}}
 else if(raw==='/'||raw==='')window.scrollTo(0,saves.kp||0);
+else if(next==='demo'&&$('#codeForm').hidden&&$('#unlockedMsg').hidden)backToCode();
 scrollspy()}
 addEventListener('hashchange',route);addEventListener('scroll',scrollspy,{passive:true});
 /* инициализация */
